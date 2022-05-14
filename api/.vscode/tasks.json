@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/shaneduffy.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Compose Up",
+      "type": "docker-compose",
+      "dockerCompose": {
+        "up": {
+          "detached": true,
+          "build": true,
+          "services": ["shaneduffy-api-service", "mongodb"]
+        },
+        "files": ["${workspaceFolder}/docker-compose.dev.yml"]
+      }
+    },
+    {
+      "label": "Compose Down",
+      "type": "docker-compose",
+      "dockerCompose": {
+        "down": {
+          "removeVolumes": false
+        },
+        "files": ["${workspaceFolder}/docker-compose.dev.yml"]
+      }
+    }
+  ]
+}

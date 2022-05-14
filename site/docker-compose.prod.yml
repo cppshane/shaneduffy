@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+    shaneduffy-angular-service:
+        image: shaneduffy.angular.prod.image
+        container_name: shaneduffy.angular.prod.container
+        build:
+            context: .
+            dockerfile: .docker/prod.dockerfile
+        environment:
+            NODE_ENV: production 
+        volumes:
+            - "./:/usr/share/app"
+            - /app/node_modules/
+        ports:
+            - 4000:80
+        command: ["npm", "run", "serve:ssr"]

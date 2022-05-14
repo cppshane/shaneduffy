@@ -1,0 +1,223 @@
+#nav-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9993;
+}
+
+#nav-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 9995;
+}
+
+#search-nav-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: fixed;
+  z-index: 9999;
+}
+
+#search-control {
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.5s;
+}
+
+.search-control-closed {
+  margin-right: 1em !important;
+}
+
+.search-control-open {
+  transition-delay: 0.25s;
+  margin-right: 21em !important;
+}
+
+#search-sidebar-underline {
+  align-self: stretch;
+  height: 3px;
+  border-radius: 3px;
+  background: #FEFEFE;
+  margin: 5em 0 0 2em;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.5s;
+}
+
+#search-input {
+  border-radius: 5px 0px 0px 5px !important;
+  margin: 2em -5px 2em 2em;
+}
+
+#spacer-search-nav-button {
+  opacity: 0;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s;
+}
+
+.nav-controls-container {
+  display: flex;
+  flex-direction: row;
+  height: 4em;
+  margin-top: 2em;
+  overflow-x: scroll;
+  margin-left: 2em;
+  margin-right: 2em;
+  pointer-events: none;
+}
+
+.nav-controls-container a {
+  font-family: 'JetBrains Mono', monospace;
+  text-decoration: none;
+  color: #FEFEFE;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  align-self: center;
+  margin-right: 3em;
+  transition-duration: 0.2s;
+  text-transform: uppercase;
+  pointer-events: all;
+}
+
+.nav-controls-container a:last-child {
+  margin-right: 1em;
+}
+
+.nav-controls-container a:hover {
+  color: #6C00FF;
+}
+
+#nav-circle-logo {
+  height: 2em;
+  width: 2em;
+  min-width: 2em;
+  margin: 3em;
+  pointer-events: all;
+}
+
+#nav-circle-logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.search-result-container {
+  margin: 0 2em 0 2em;
+}
+
+.search-result-container h4 {
+  transition-duration: 0.2s;
+}
+
+.search-result-container a:hover h4 {
+  color: #fefefea8;
+}
+
+#search-control-container {
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.5s;
+}
+
+#menu-control {
+  display: none;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+}
+
+#menu-control > div {
+  border-radius: 2px;
+  width: 100%;
+  background: #FEFEFE;
+  margin-top: 7.5%;
+  margin-bottom: 7.5%;
+  height: 18%;
+  animation-duration: 0.5s;
+  transition-duration: 0.2s;
+}
+
+#menu-control:hover > div {
+  background: #6C00FF;
+}
+
+#menu-controls-container {
+  width: 100%;
+  flex-direction: column;
+  display: none;
+  margin: 2em 2em 0 2em;
+  align-items: flex-start;
+}
+
+#menu-controls-container > a {
+  font-family: 'JetBrains Mono', monospace;
+  text-decoration: none;
+  color: #FEFEFE;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  margin-right: 3em;
+  transition-duration: 0.2s;
+  text-transform: uppercase;
+  pointer-events: all;
+}
+
+#menu-controls-container > a:hover {
+  color: #6C00FF;
+}
+
+#menu-controls-container > a:hover:last-child {
+  color: #FEFEFE;
+}
+
+#search-sidebar {
+  height: 100%;
+  position: fixed;
+  width: 25em;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.5s;
+  pointer-events: all;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.search-sidebar-closed {
+  transition-delay: 0.25s;
+  margin-left: 100%;
+}
+
+.search-sidebar-open {
+  margin-left: calc(100% - 25em);
+}
+
+@media screen and (max-width: 540px) {
+  #header-nav {
+    display: none;
+  }
+  #search-control-container {
+    height: 8em;
+  }
+  #search-control {
+    display: none;
+  }
+  #menu-controls-container {
+    display: flex;
+  }
+  #search-sidebar-underline {
+    margin-top: 0;
+  }
+  #menu-control {
+    display: block;
+  }
+  .search-sidebar-open {
+    margin-left: 0;
+  }
+  #search-sidebar {
+    width: 100%;
+  }
+}

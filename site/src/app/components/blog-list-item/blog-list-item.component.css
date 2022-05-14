@@ -1,0 +1,45 @@
+#blog-list-item-container {
+  width: 100%;
+  padding: 2.5em 0;
+}
+
+#blog-list-item-title-link > h1 {
+  margin-block-start: 0.5em;
+  transition-duration: 0.2s;
+  font-weight: 600;
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+
+#blog-list-item-title-link:hover > h1 {
+  color: #fefefea8;
+}
+
+#blog-list-item-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#blog-list-item-header-container > time {
+  white-space: nowrap;
+  margin-left: 1em;
+}
+
+@media screen and (max-width: 540px) {
+  #blog-list-item-header-container {
+    flex-direction: column;
+  }
+  #blog-list-item-header-container > time {
+    margin-left: 0em;
+  }
+}
+
+#blog-list-item-keywords-container {
+  float: left;
+}
+
+#blog-list-item-date-text {
+  float: right;
+  margin: 0 0 0 2em;
+}

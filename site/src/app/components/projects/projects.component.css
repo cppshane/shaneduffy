@@ -1,0 +1,22 @@
+.project-container {
+  width: 100%;
+}
+
+.project-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-title-container > a {
+  transition-duration: 0.2s;
+}
+
+.project-title-container > a:hover {
+  color: #6C00FF;
+}
+
+.project-title-container > a > fa-icon {
+  font-size: 1.5rem;
+}

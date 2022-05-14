@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Docker Site Launch",
+      "request": "launch",
+      "type": "docker",
+      "platform": "node",
+      "preLaunchTask": "Compose Up",
+      "postDebugTask": "Compose Down"
+    },
+    {
+      "name": "Site Launch",
+      "command": "npm run dev:ssr",
+      "request": "launch",
+      "type": "node-terminal",
+      "serverReadyAction":{
+        "action": "startDebugging",
+        "name": "Chrome Client",
+        "pattern":"listening on (.*)localhost:([0-9]+)"
+      }
+    },
+    {
+      "name": "Chrome Client",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "sourceMaps": true,
+      "webRoot": "${workspaceRoot}"
+    }
+  ]
+}

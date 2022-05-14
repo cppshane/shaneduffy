@@ -1,0 +1,40 @@
+<div id="nav-container">
+  <div id="nav-bar">
+    <a id="nav-circle-logo" [routerLink]="['/']"><img src="../../../assets/img/logo-circle-64.png" /></a>
+    <div id="header-nav" class="nav-controls-container hidden-scrollbar">
+      <a [routerLink]="['/']">home</a>
+      <a [routerLink]="['/about']">about</a>
+      <a [routerLink]="['/projects']">projects</a>
+      <!--<a [routerLink]="['/notes']">notes</a>-->
+      <a id="spacer-search-nav-button">search</a>
+    </div>
+  </div>
+  <div id="search-nav-bar">
+    <div class="nav-controls-container hidden-scrollbar">
+      <a #searchControl id="search-control" class="search-control-closed cursor-pointer"
+        (click)="toggleSearchSidebar()">search</a>
+      <a (click)="toggleSearchSidebar()" id="menu-control">
+        <div></div>
+        <div></div>
+        <div></div>
+      </a>
+    </div>
+  </div>
+  <div #searchSidebar id="search-sidebar" class="search-sidebar-closed background-dark-gray">
+    <div id="menu-controls-container">
+      <a [routerLink]="['/']" class="purple-hover" (click)="toggleSearchSidebar()">home</a>
+      <a [routerLink]="['/about']" class="purple-hover" (click)="toggleSearchSidebar()">about</a>
+      <a [routerLink]="['/projects']" class="purple-hover" (click)="toggleSearchSidebar()">projects</a>
+      <!--<a [routerLink]="['/notes']">notes</a>-->
+      <a class="cursor-default">search</a>
+    </div>
+    <div id="search-sidebar-underline"></div>
+    <input #searchInput id="search-input" class="input-container-light" placeholder="press enter..."
+      [(ngModel)]="searchText" (keyup.enter)="applySearch()" />
+    <div *ngFor="let post of searchResults" class="search-result-container">
+      <a [routerLink]="['/blog/' + post.Uri]">
+        <h4>{{ "> " + post.Title }}</h4>
+      </a>
+    </div>
+  </div>
+</div>

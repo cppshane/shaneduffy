@@ -1,0 +1,14 @@
+<div id="blog-list-item-container">
+  <div class="content-section-container">
+    <a id="blog-list-item-title-link" [routerLink]="['/blog/' + blogPost?.Uri]">
+      <h1>{{ blogPost?.Title }}</h1>
+    </a>
+    <p id="blog-list-item-preview-text">{{ blogPost?.Preview }}</p>
+    <div id="blog-list-item-header-container">
+      <div id="blog-list-item-keywords-container" class="keywords-container">
+        <a *ngFor="let keyword of blogPost?.Keywords" class="small-button-container background-purple">{{ keyword }}</a>
+      </div>
+      <time id="blog-list-item-date-time" [dateTime]="blogPost?.Date">{{ blogPost?.Date | date }}</time>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div id="header-container" class="background-dark-gray">
+  <div id="home-header-container" [style.display]="homeDisplayStyle">
+    <img id="home-banner" src="../../../assets/img/logo-banner-2.png" />
+  </div>
+  <div id="blog-post-header-container" [style.display]="blogPostDisplayStyle">
+    <div class="intro-section-mask"></div>
+    <div class="intro-section-content content-section-container">
+      <div id="blog-post-intro-header-container">
+        <div class="keywords-container">
+          <a *ngFor="let keyword of blogPost?.Keywords" class="button-container background-purple">{{ keyword }}</a>
+        </div>
+        <time id="blog-list-item-date-time" [dateTime]="blogPost?.Date">{{ blogPost?.Date | date }}</time>
+      </div>
+      <h1>
+        {{ blogPost?.Title }}
+      </h1>
+      <div class="divider-line"></div>
+    </div>
+  </div>
+  <div id="standard-header-container" [style.display]="standardDisplayStyle">
+    <div class="intro-section-mask"></div>
+    <div class="intro-section-content content-section-container">
+      <h1>
+        {{ standardTitle }}
+      </h1>
+      <div class="divider-line"></div>
+    </div>
+  </div>
+</div>

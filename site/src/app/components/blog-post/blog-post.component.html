@@ -1,0 +1,11 @@
+<div id="blog-post-container" *ngIf="blogPost">
+  <div class="content-section-container">
+    <div id="preview-container">
+      <p>
+        {{ blogPost?.Preview }}
+      </p>
+    </div>
+    <div #contentContainer id="content-container" [innerHtml]="blogPost.Content | safe: 'html'">
+    </div>
+  </div>
+</div>

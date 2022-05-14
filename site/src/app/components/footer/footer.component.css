@@ -1,0 +1,13 @@
+#footer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+#footer-profile-image {
+  width: 7em;
+  height: 7em;
+}

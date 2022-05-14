@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "./site"
+    },
+    {
+      "path": "./api"
+    },
+  ],
+  "settings": {},
+  "launch": {
+    "version": "0.2.0",
+    "compounds": [
+      {
+        "name": "Launch Workspace",
+        "configurations": ["Docker API Attach", "Docker Site Launch", "Chrome Client"]
+      }
+    ]
+  }
+}

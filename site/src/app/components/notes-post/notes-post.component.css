@@ -1,0 +1,13 @@
+#blog-post-container {
+  width: 100%;
+}
+
+#preview-container p {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 480px) {
+  #intro-section-content {
+    margin: 0 2em;
+  }
+}

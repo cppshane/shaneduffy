@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "API Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/bin/Debug/net5.0/shaneduffy.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    // The Docker extension doesn't seem to support preLaunchTask/postLaunchTask,
+    // so for now, use a standard attach.
+    {
+      "name": "Docker API Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "dotnet",
+      "sourceFileMap": {
+        "/app": "${workspaceRoot}/"
+      },
+      "pipeTransport": {
+        "pipeCwd": "${workspaceRoot}",
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "shaneduffy.api.dev.container"],
+        "quoteArgs": false,
+        "debuggerPath": "/vsdbg/vsdbg"
+      },
+      "preLaunchTask": "Compose Up",
+      "postDebugTask": "Compose Down"
+    }
+  ]
+}
