@@ -13,4 +13,4 @@ COPY . .
 
 ENV PATH /node_modules/.bin:$PATH
 EXPOSE 80
-CMD ["npm", "run", "serve:ssr"]
+CMD ["npm", "run", "prerender"]
