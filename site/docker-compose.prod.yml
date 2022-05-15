@@ -13,5 +13,5 @@ services:
             - "./:/usr/share/app"
             - /app/node_modules/
         ports:
-            - 4000:80
+            - 4000:4000
         command: ["npm", "run", "serve:ssr"]
