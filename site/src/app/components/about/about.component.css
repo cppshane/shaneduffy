@@ -1,0 +1,9 @@
+.about-links-container {
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.about-links-container > p {
+    margin: 0 1em;
+}
