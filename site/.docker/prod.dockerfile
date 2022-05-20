@@ -10,7 +10,8 @@ COPY package-lock.json package-lock.json
 RUN npm i
 
 COPY . .
+RUN npm run prerender
 
 ENV PATH /node_modules/.bin:$PATH
 EXPOSE 80
-CMD ["npm", "run", "prerender"]
+CMD ["npm", "run", "serve:ssr"]

@@ -14,4 +14,4 @@ COPY . .
 ENV PATH /node_modules/.bin:$PATH
 EXPOSE 80
 EXPOSE 9222
-CMD ["npm run dev:ssr --port 80"]
+CMD ["npm", "run", "dev:ssr", "--", "--port", "80"]
