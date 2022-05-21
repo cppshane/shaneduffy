@@ -436,6 +436,18 @@ code {
   color: #01aafe;
 }
 
+.color-medium {
+  color: #eeebea;  
+}
+
+.color-dev {
+  color: #FFFFFF;
+}
+
+.color-readerly {
+  color: #ef5776;
+}
+
 @media screen and (max-width: 480px) {
   h2 {
     font-size: 2rem;
