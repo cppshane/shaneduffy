@@ -3,6 +3,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Post } from "../../models/post.model";
 import { PostService } from "../../services/post.service";
+import { Title } from "@angular/platform-browser";
 
 declare const hljs: any;
 
@@ -17,14 +18,20 @@ export class BlogPostComponent implements OnInit {
   constructor(
     private blogService: PostService,
     private activatedRoute: ActivatedRoute,
+    private titleService: Title,
     @Inject(PLATFORM_ID) private platformId: Record<string, unknown>
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle("Shane Duffy");
+
     this.activatedRoute.params.subscribe((params) => {
       if (params.uri) {
         this.blogService.getBlogPost(params.uri, (result: Post) => {
           this.blogPost = result;
+
+          if (this.blogPost)
+            this.titleService.setTitle(this.blogPost.Title);
         });
       }
     });

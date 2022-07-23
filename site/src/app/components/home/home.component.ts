@@ -9,6 +9,7 @@ import { ActivatedRoute } from "@angular/router";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { Post } from "../../models/post.model";
 import { PostService } from "../../services/post.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-home",
@@ -27,7 +28,8 @@ export class HomeComponent {
     private postService: PostService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private titleService: Title
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       const pageParam = params["page"];
@@ -57,6 +59,10 @@ export class HomeComponent {
         }
       );
     });
+  }
+
+  ngOnInit() {
+    this.titleService.setTitle("Shane Duffy");
   }
 
   pageClick(i: number) {
