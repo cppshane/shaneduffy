@@ -3,7 +3,7 @@
   padding: 2.5em 0;
 }
 
-#blog-list-item-title-link > h1 {
+#blog-list-item-title > h1 {
   margin-block-start: 0.5em;
   transition-duration: 0.2s;
   font-weight: 600;
@@ -11,8 +11,15 @@
   line-height: 3rem;
 }
 
-#blog-list-item-title-link:hover > h1 {
+.title-link:hover > h1 {
   color: #fefefea8;
+}
+
+.content-section-container iframe {
+  border: 0;
+  width: 100%;
+  height: calc(100% * (8/ 9));
+  border-radius: 5px;
 }
 
 #blog-list-item-header-container {
