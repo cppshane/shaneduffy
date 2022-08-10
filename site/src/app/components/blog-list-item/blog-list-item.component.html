@@ -1,7 +1,10 @@
 <div id="blog-list-item-container">
   <div class="content-section-container">
-    <iframe *ngIf="video != null" [src]="video | safe:'resourceUrl'" class="handle-video"></iframe>
-    <a *ngIf="blogPost?.Content != null" id="blog-list-item-title" class="title-link" [routerLink]="['/blog/' + blogPost?.Uri]">
+    <iframe *ngIf="video != null" [src]="video | safe:'resourceUrl'" class="handle-video"
+      allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
+      oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
+    <a *ngIf="blogPost?.Content != null" id="blog-list-item-title" class="title-link"
+      [routerLink]="['/blog/' + blogPost?.Uri]">
       <h1>{{ blogPost?.Title }}</h1>
     </a>
     <div *ngIf="blogPost?.Content == null" id="blog-list-item-title">
