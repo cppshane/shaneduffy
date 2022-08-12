@@ -1,5 +1,8 @@
 <div id="blog-post-container" *ngIf="blogPost">
   <div class="content-section-container">
+    <iframe *ngIf="video != null" [src]="video | safe:'resourceUrl'" class="video-handler"
+    allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
+    oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
     <div id="preview-container">
       <p>
         {{ blogPost?.Preview }}

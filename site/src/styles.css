@@ -109,6 +109,13 @@ code {
   scrollbar-width: none;
 }
 
+.video-handler {
+  border: 0;
+  width: 100%;
+  height: calc(100% * (8/ 9));
+  border-radius: 5px;
+}
+
 .divider-line {
   height: 0.2em;
   min-height: 0.2em;

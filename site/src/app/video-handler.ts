@@ -1,4 +1,4 @@
-import { Component, Injectable } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
   template: ``,
@@ -7,15 +7,11 @@ import { Component, Injectable } from "@angular/core";
   }
 })
 export class VideoHandlerComponent {
-  ngAfterViewInit() {
-    this.onResize();
-  }
-
   onResize() {
     if (typeof document !== "undefined") {
       const elements = Array.from(
         document.getElementsByClassName(
-          "handle-video"
+          "video-handler"
         ) as HTMLCollectionOf<HTMLElement>
       );
 

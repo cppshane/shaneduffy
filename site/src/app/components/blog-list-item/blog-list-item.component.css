@@ -15,13 +15,6 @@
   color: #fefefea8;
 }
 
-.content-section-container iframe {
-  border: 0;
-  width: 100%;
-  height: calc(100% * (8/ 9));
-  border-radius: 5px;
-}
-
 #blog-list-item-header-container {
   display: flex;
   flex-direction: row;

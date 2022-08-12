@@ -22,4 +22,8 @@ export class BlogListItemComponent extends VideoHandlerComponent {
       }
     }
   }
+
+  ngAfterViewInit() {
+    super.onResize();
+  }
 }

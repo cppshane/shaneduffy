@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Post } from "../../models/post.model";
 import { PostService } from "../../services/post.service";
 import { Title } from "@angular/platform-browser";
+import { VideoHandlerComponent } from "src/app/video-handler";
 
 declare const hljs: any;
 
@@ -12,15 +13,19 @@ declare const hljs: any;
   templateUrl: "./blog-post.component.html",
   styleUrls: ["./blog-post.component.css"],
 })
-export class BlogPostComponent implements OnInit {
+export class BlogPostComponent extends VideoHandlerComponent implements OnInit {
   blogPost?: Post;
+  video: string | null = null;
+  image: string | null = null;
 
   constructor(
     private blogService: PostService,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
     @Inject(PLATFORM_ID) private platformId: Record<string, unknown>
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.titleService.setTitle("Shane Duffy");
@@ -30,6 +35,15 @@ export class BlogPostComponent implements OnInit {
         this.blogService.getBlogPost(params.uri, (result: Post) => {
           this.blogPost = result;
 
+          if (this.blogPost?.Image) {
+            if (this.blogPost.Image.startsWith("https://www.youtube.com")) {
+              this.video = this.blogPost?.Image;
+            }
+            else {
+              this.image = this.blogPost?.Image;
+            }
+          }
+
           if (this.blogPost)
             this.titleService.setTitle(this.blogPost.Title);
         });
@@ -38,6 +52,8 @@ export class BlogPostComponent implements OnInit {
   }
 
   ngAfterViewChecked() {
+    super.onResize();
+
     if (isPlatformBrowser(this.platformId)) {
       const codeElements = document.getElementsByTagName("code");
 
