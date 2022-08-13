@@ -6,4 +6,8 @@
 
 .about-links-container > p {
     margin: 0 1em;
+    font-size: 1.0rem;
+    line-height: 2rem;
+    letter-spacing: 0.02em;
+    font-weight: 500;
 }
