@@ -185,17 +185,18 @@ code {
 
 .small-button-container {
   border-radius: 5px;
-  font-family: 'JetBrains Mono', monospace;
   text-decoration: none;
   color: #FEFEFE;
-  font-size: 0.6rem;
-  letter-spacing: 0.001em;
-  font-weight: 700;
   margin: 0;
   padding: 0 0.9em;
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.0rem;
+  line-height: 2rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 540px) {
