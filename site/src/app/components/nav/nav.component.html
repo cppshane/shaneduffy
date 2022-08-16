@@ -32,7 +32,7 @@
     <input #searchInput id="search-input" class="input-container-light" placeholder="press enter..."
       [(ngModel)]="searchText" (keyup.enter)="applySearch()" />
     <div *ngFor="let post of searchResults" class="search-result-container">
-      <a [routerLink]="['/blog/' + post.Uri]">
+      <a [routerLink]="['/blog/' + post.Uri]" (click)="closeSidebar()">
         <h4>{{ "> " + post.Title }}</h4>
       </a>
     </div>
