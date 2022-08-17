@@ -55,7 +55,7 @@ export class NavComponent {
       this.searchSidebarOpen = true;
       this.searchInput?.nativeElement.focus();
 
-      this.router.navigate([''], { fragment: 'search'});
+      this.router.navigate([this.router.url], {fragment: 'search'});
     }
   }
 
@@ -68,6 +68,8 @@ export class NavComponent {
       this.searchControl.nativeElement.classList.add("search-control-closed");
 
       this.searchSidebarOpen = false;
+
+      this.router.navigate([this.router.url]);
     }
   }
 
