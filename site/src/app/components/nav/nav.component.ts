@@ -20,11 +20,11 @@ export class NavComponent {
   maxResults = 50;
 
   constructor(private postService: PostService, location: PlatformLocation) {
-    location.onPopState(() => {
-        if (this.searchSidebarOpen) {
-          this.closeSidebar();
-        }
-    });
+    window.addEventListener('popstate', (event) => {
+      if (this.searchSidebarOpen) {
+        this.closeSidebar();
+      }
+    }, false);
   }
 
   toggleSearchSidebar() {
