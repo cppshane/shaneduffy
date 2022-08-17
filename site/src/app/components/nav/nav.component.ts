@@ -1,5 +1,5 @@
-import { PlatformLocation } from "@angular/common";
 import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { Post } from "src/app/models/post.model";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { PostService } from "src/app/services/post.service";
@@ -8,6 +8,9 @@ import { PostService } from "src/app/services/post.service";
   selector: "app-nav",
   templateUrl: "./nav.component.html",
   styleUrls: ["./nav.component.css"],
+  host: {
+    '(window: popstate)': 'backButton()'
+  }
 })
 export class NavComponent {
   @ViewChild("searchSidebar", { static: true }) searchSidebar?: ElementRef;
@@ -19,13 +22,7 @@ export class NavComponent {
   searchResults = new Array<Post>();
   maxResults = 50;
 
-  constructor(private postService: PostService, location: PlatformLocation) {
-    window.addEventListener('popstate', (event) => {
-      if (this.searchSidebarOpen) {
-        this.closeSidebar();
-      }
-    }, false);
-  }
+  constructor(private postService: PostService, private router: Router) { }
 
   toggleSearchSidebar() {
     if (this.searchSidebar != null && this.searchControl != null) {
@@ -34,6 +31,12 @@ export class NavComponent {
       } else {
         this.closeSidebar();
       }
+    }
+  }
+
+  backButton() {
+    if (this.searchSidebarOpen) {
+      this.closeSidebar();
     }
   }
 
@@ -51,6 +54,8 @@ export class NavComponent {
 
       this.searchSidebarOpen = true;
       this.searchInput?.nativeElement.focus();
+
+      this.router.navigate([''], { fragment: 'search'});
     }
   }
 
