@@ -1,3 +1,4 @@
+import { PlatformLocation } from "@angular/common";
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { Post } from "src/app/models/post.model";
 import { SearchResponse } from "src/app/models/search-response.model";
@@ -18,7 +19,13 @@ export class NavComponent {
   searchResults = new Array<Post>();
   maxResults = 50;
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, location: PlatformLocation) {
+    location.onPopState(() => {
+        if (this.searchSidebarOpen) {
+          this.closeSidebar();
+        }
+    });
+  }
 
   toggleSearchSidebar() {
     if (this.searchSidebar != null && this.searchControl != null) {

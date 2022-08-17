@@ -11,7 +11,7 @@
     },
     {
       "name": "Site Launch",
-      "command": "npm run dev:ssr",
+      "command": "npm run start",
       "request": "launch",
       "type": "node-terminal",
       "serverReadyAction":{
