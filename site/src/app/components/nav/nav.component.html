@@ -31,10 +31,12 @@
     <div id="search-sidebar-underline"></div>
     <input #searchInput id="search-input" class="input-container-light" placeholder="press enter..."
       [(ngModel)]="searchText" (keyup.enter)="applySearch()" />
-    <div *ngFor="let post of searchResults" class="search-result-container">
-      <a [routerLink]="['/blog/' + post.Uri]">
-        <h4>{{ "> " + post.Title }}</h4>
-      </a>
+    <div class="results-list-container">
+      <div *ngFor="let post of searchResults" class="search-result-container">
+        <a [routerLink]="['/blog/' + post.Uri]">
+          <h4>{{ "> " + post.Title }}</h4>
+        </a>
+      </div>
     </div>
   </div>
 </div>

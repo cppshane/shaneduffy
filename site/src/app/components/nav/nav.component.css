@@ -105,6 +105,11 @@
   height: 100%;
 }
 
+.results-list-container {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
 .search-result-container {
   margin: 0 2em 0 2em;
 }
