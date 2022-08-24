@@ -18,6 +18,7 @@ export class NavComponent {
   searchText = "";
   searchResults = new Array<Post>();
   maxResults = 50;
+  scrollTo?: number;
 
   constructor(
     private postService: PostService,
@@ -27,19 +28,17 @@ export class NavComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
 
-        // Only preserve scroll position if changing query params
-        if (event.url.split('?')[0] != router.url.split('?')[0]) {
-          localStorage.removeItem('scroll');
+        // Only preserve scroll position if adding search param
+        if (event.url.split('?').length < 2 || (!event.url.split('?')[0].includes('search') && router.url.split('?')[0].includes('search'))) {
+          this.scrollTo = undefined;
         } else {
-          localStorage.setItem('scroll', window.scrollY.toString());
+          this.scrollTo = window.scrollY;
         }
         return;
       }
 
-      const scrollTo = Number(localStorage.getItem('scroll'));
-
-      if (document.body.scrollHeight != 0 && !isNaN(scrollTo)) {
-        window.scrollTo(0, scrollTo);
+      if (document.body.scrollHeight != 0 && this.scrollTo) {
+        window.scrollTo(0, this.scrollTo);
       }
     });
 
@@ -53,7 +52,7 @@ export class NavComponent {
   }
 
   navToSearch() {
-    localStorage.setItem('scroll', window.scrollY.toString());
+    this.scrollTo = window.scrollY;
     this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { search: '' }, queryParamsHandling: 'merge' });
   }
 
