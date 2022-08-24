@@ -49,7 +49,7 @@ export class NavComponent {
     this.route.queryParams.subscribe((value: Params) => {
       if (value['search'] != null && !this.searchSidebarOpen) {
         this.openSidebar();
-      } else if (!value['search'] && this.searchSidebarOpen) {
+      } else if (value['search'] == null && this.searchSidebarOpen) {
         this.closeSidebar();
       }
     });
@@ -66,7 +66,15 @@ export class NavComponent {
 
   navOutSearch() {
     const params = this.router.url.split('?');
-    this.router.navigate([ params[0] + (params.length > 1 ? params[1].replace('search=', '') : '') ]);
+    let newQp = '';
+    if (params.length > 1) {
+      let withoutSearchParam = params[1];
+      withoutSearchParam = withoutSearchParam.replace('search=&', '');
+      withoutSearchParam = withoutSearchParam.replace('search=', '');
+      newQp = '?' + withoutSearchParam;
+    }
+    const newUri = params[0] + newQp;
+    this.router.navigateByUrl(newUri);
   }
 
   openSidebar() {
