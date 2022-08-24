@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from "@angular/router";
 import { Post } from "src/app/models/post.model";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { PostService } from "src/app/services/post.service";
@@ -9,7 +9,7 @@ import { PostService } from "src/app/services/post.service";
   templateUrl: "./nav.component.html",
   styleUrls: ["./nav.component.css"],
   host: {
-    '(window: popstate)': 'backButton()'
+    '(window:scroll)': 'onScroll()'
   }
 })
 export class NavComponent {
@@ -22,22 +22,51 @@ export class NavComponent {
   searchResults = new Array<Post>();
   maxResults = 50;
 
-  constructor(private postService: PostService, private router: Router) { }
+  constructor(
+    private postService: PostService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
 
-  toggleSearchSidebar() {
-    if (this.searchSidebar != null && this.searchControl != null) {
-      if (!this.searchSidebarOpen) {
+        // Only preserve scroll position if changing query params
+        if (event.url.split('?')[0] != router.url.split('?')[0]) {
+          localStorage.removeItem('scroll');
+        } else {
+          localStorage.setItem('scroll', window.scrollY.toString());
+        }
+        return;
+      }
+
+      const scrollTo = Number(localStorage.getItem('scroll'));
+
+      if (document.body.scrollHeight != 0 && !isNaN(scrollTo)) {
+        window.scrollTo(0, scrollTo);
+      }
+    });
+
+    this.route.queryParams.subscribe((value: Params) => {
+      if (value['search'] != null && !this.searchSidebarOpen) {
         this.openSidebar();
-      } else {
+      } else if (!value['search'] && this.searchSidebarOpen) {
         this.closeSidebar();
       }
-    }
+    });
   }
 
-  backButton() {
-    if (this.searchSidebarOpen) {
-      this.closeSidebar();
-    }
+  onScroll() {
+    //localStorage.setItem('scroll', window.scrollY.toString());
+  }
+
+  navToSearch() {
+    localStorage.setItem('scroll', window.scrollY.toString());
+    this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { search: '' }, queryParamsHandling: 'merge' });
+  }
+
+  navOutSearch() {
+    const params = this.router.url.split('?');
+    this.router.navigate([ params[0] + (params.length > 1 ? params[1].replace('search=', '') : '') ]);
   }
 
   openSidebar() {
@@ -54,8 +83,6 @@ export class NavComponent {
 
       this.searchSidebarOpen = true;
       this.searchInput?.nativeElement.focus();
-
-      this.router.navigate([this.router.url], {fragment: 'search'});
     }
   }
 
@@ -68,8 +95,6 @@ export class NavComponent {
       this.searchControl.nativeElement.classList.add("search-control-closed");
 
       this.searchSidebarOpen = false;
-
-      this.router.navigate([this.router.url]);
     }
   }
 

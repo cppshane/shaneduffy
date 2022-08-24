@@ -33,6 +33,17 @@
   #blog-list-item-header-container > time {
     margin-left: 0em;
   }
+  #blog-list-item-title > h1 {
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  #blog-list-item-title > h1 {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
 }
 
 #blog-list-item-keywords-container {

@@ -12,8 +12,8 @@
   <div id="search-nav-bar">
     <div class="nav-controls-container hidden-scrollbar">
       <a #searchControl id="search-control" class="search-control-closed cursor-pointer"
-        (click)="toggleSearchSidebar()">search</a>
-      <a (click)="toggleSearchSidebar()" id="menu-control">
+        (click)="searchSidebarOpen ? navOutSearch() : navToSearch()">search</a>
+      <a (click)="searchSidebarOpen ? navOutSearch() : navToSearch()" id="menu-control">
         <div></div>
         <div></div>
         <div></div>
@@ -22,9 +22,9 @@
   </div>
   <div #searchSidebar id="search-sidebar" class="search-sidebar-closed background-dark-gray">
     <div id="menu-controls-container">
-      <a [routerLink]="['/']" class="purple-hover" (click)="toggleSearchSidebar()">home</a>
-      <a [routerLink]="['/about']" class="purple-hover" (click)="toggleSearchSidebar()">about</a>
-      <a [routerLink]="['/projects']" class="purple-hover" (click)="toggleSearchSidebar()">projects</a>
+      <a [routerLink]="['/']" class="purple-hover">home</a>
+      <a [routerLink]="['/about']" class="purple-hover">about</a>
+      <a [routerLink]="['/projects']" class="purple-hover">projects</a>
       <!--<a [routerLink]="['/notes']">notes</a>-->
       <a class="cursor-default">search</a>
     </div>
@@ -32,7 +32,7 @@
     <input #searchInput id="search-input" class="input-container-light" placeholder="press enter..."
       [(ngModel)]="searchText" (keyup.enter)="applySearch()" />
     <div *ngFor="let post of searchResults" class="search-result-container">
-      <a [routerLink]="['/blog/' + post.Uri]" (click)="closeSidebar()">
+      <a [routerLink]="['/blog/' + post.Uri]">
         <h4>{{ "> " + post.Title }}</h4>
       </a>
     </div>

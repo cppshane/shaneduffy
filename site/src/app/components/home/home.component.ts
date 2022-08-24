@@ -5,7 +5,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { Post } from "../../models/post.model";
 import { PostService } from "../../services/post.service";
@@ -29,10 +29,14 @@ export class HomeComponent {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
     private titleService: Title
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       const pageParam = params["page"];
+      if (this.blogPosts.length != 0 && (pageParam == this.currentPage || (this.currentPage == 0 && !pageParam))) {
+        return;
+      }
       let page = 0;
       if (pageParam != null && pageParam != 0) {
         page = pageParam;
@@ -46,6 +50,7 @@ export class HomeComponent {
         (searchResponse: SearchResponse) => {
           this.totalPages = searchResponse.TotalPages;
           this.currentPage = searchResponse.CurrentPage;
+          this.blogPosts = [];
           for (const blogPost of searchResponse.Posts) {
             this.blogPosts.push(blogPost);
           }
@@ -78,8 +83,8 @@ export class HomeComponent {
         for (const blogPost of searchResponse.Posts) {
           this.blogPosts.push(blogPost);
         }
-        this.location.replaceState("/?page=" + (i + 1).toString());
-        this.changeDetectorRef.detectChanges();
+
+        this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { page: (i + 1).toString() }, queryParamsHandling: 'merge' });
 
         if (this.blogSectionContainer?.nativeElement instanceof HTMLElement) {
           this.blogSectionContainer?.nativeElement.scrollIntoView({
