@@ -7,10 +7,7 @@ import { PostService } from "src/app/services/post.service";
 @Component({
   selector: "app-nav",
   templateUrl: "./nav.component.html",
-  styleUrls: ["./nav.component.css"],
-  host: {
-    '(window:scroll)': 'onScroll()'
-  }
+  styleUrls: ["./nav.component.css"]
 })
 export class NavComponent {
   @ViewChild("searchSidebar", { static: true }) searchSidebar?: ElementRef;
@@ -53,10 +50,6 @@ export class NavComponent {
         this.closeSidebar();
       }
     });
-  }
-
-  onScroll() {
-    //localStorage.setItem('scroll', window.scrollY.toString());
   }
 
   navToSearch() {
