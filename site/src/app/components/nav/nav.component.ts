@@ -28,8 +28,19 @@ export class NavComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
 
-        // Only preserve scroll position if adding search param
-        if (event.url.split('?').length < 2 || (!event.url.split('?')[0].includes('search') && router.url.split('?')[0].includes('search'))) {
+        // Only preserve scroll position if adding or removing search param
+        let newContains = false;
+        let oldContains = false;
+        const newSplit = event.url.split('?');
+        const oldSplit = router.url.split('?');
+        if (newSplit.length > 1 && newSplit[1].includes('search=')) {
+          newContains = true;
+        }
+        if (oldSplit.length > 1 && oldSplit[1].includes('search=')) {
+          oldContains = true;
+        }
+
+        if (newContains == oldContains) {
           this.scrollTo = undefined;
         } else {
           this.scrollTo = window.scrollY;
