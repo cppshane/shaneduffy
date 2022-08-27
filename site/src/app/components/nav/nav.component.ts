@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from "@angular/router";
 import { Post } from "src/app/models/post.model";
 import { SearchResponse } from "src/app/models/search-response.model";
@@ -23,7 +24,8 @@ export class NavComponent {
   constructor(
     private postService: PostService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Record<string, unknown>
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -48,8 +50,10 @@ export class NavComponent {
         return;
       }
 
-      if (document.body.scrollHeight != 0 && this.scrollTo) {
-        window.scrollTo(0, this.scrollTo);
+      if (isPlatformBrowser(this.platformId)) {
+        if (document.body.scrollHeight != 0 && this.scrollTo) {
+          window.scrollTo(0, this.scrollTo);
+        }
       }
     });
 
