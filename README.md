@@ -9,3 +9,8 @@ You can run it with the VS Code configurations or the following Docker command i
 ```
 docker-compose -f docker-compose.dev.yml up
 ```
+
+The API docker will spin up a MongoDB instance that can be accessed via the following address:
+```
+mongodb://shane:password@172.17.0.1:27017/shaneduffy_database?authSource=shaneduffy_database
+```
