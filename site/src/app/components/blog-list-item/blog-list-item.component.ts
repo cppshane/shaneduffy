@@ -15,10 +15,14 @@ export class BlogListItemComponent extends VideoHandlerComponent {
   ngOnChanges() {
     if (this.blogPost?.Image) {
       if (this.blogPost.Image.startsWith("https://www.youtube.com")) {
-        this.video = this.blogPost?.Image;
+        if (!this.video) {
+          this.video = this.blogPost?.Image;
+        }
       }
       else {
-        this.image = this.blogPost?.Image;
+        if (!this.image) {
+          this.image = this.blogPost?.Image;
+        }
       }
     }
   }
