@@ -12,10 +12,11 @@ export class BlogListItemComponent extends VideoHandlerComponent {
   video: string | null = null;
   image: string | null = null;
   
-  ngOnChanges() {
+  async ngOnChanges() {
     if (this.blogPost?.Image) {
       if (this.blogPost.Image.startsWith("https://www.youtube.com")) {
         if (!this.video) {
+          
           this.video = this.blogPost?.Image;
         }
       }
@@ -25,6 +26,10 @@ export class BlogListItemComponent extends VideoHandlerComponent {
         }
       }
     }
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   ngAfterViewInit() {

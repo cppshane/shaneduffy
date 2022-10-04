@@ -34,17 +34,18 @@ export class HomeComponent {
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       const pageParam = params["page"];
-      if (this.blogPosts.length != 0 && (pageParam == this.currentPage || (this.currentPage == 0 && !pageParam))) {
-        return;
-      }
+
       let page = 0;
       if (pageParam != null && pageParam != 0) {
         page = pageParam;
         page = page - 1;
       }
-      if (page == this.currentPage && this.blogPosts.length != 0) {
+
+      // Avoid reloading if data already loaded
+      if (this.currentPage == page && this.blogPosts.length != 0) {
         return;
       }
+
       postService.getBlogPosts(
         "",
         [],
@@ -56,8 +57,7 @@ export class HomeComponent {
           this.blogPosts = [];
           for (const blogPost of searchResponse.Posts) {
             this.blogPosts.push(blogPost);
-          }
-          this.changeDetectorRef.detectChanges();
+          } 
           if (pageParam != null) {
             this.blogSectionContainer?.nativeElement.scrollIntoView({
               behavior: "smooth",
@@ -74,28 +74,6 @@ export class HomeComponent {
   }
 
   pageClick(i: number) {
-    this.postService.getBlogPosts(
-      "",
-      [],
-      i,
-      this.postsPerPage,
-      (searchResponse: SearchResponse) => {
-        this.totalPages = searchResponse.TotalPages;
-        this.currentPage = searchResponse.CurrentPage;
-        this.blogPosts = new Array<Post>();
-        for (const blogPost of searchResponse.Posts) {
-          this.blogPosts.push(blogPost);
-        }
-
-        this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { page: (i + 1).toString() }, queryParamsHandling: 'merge' });
-
-        if (this.blogSectionContainer?.nativeElement instanceof HTMLElement) {
-          this.blogSectionContainer?.nativeElement.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }
-    );
+    this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { page: (i + 1).toString() }, queryParamsHandling: 'merge' });
   }
 }

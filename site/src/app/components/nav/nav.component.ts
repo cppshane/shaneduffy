@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from "@angular/common";
 import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from "@angular/router";
+import { ActivatedRoute, ActivationEnd, NavigationEnd, NavigationStart, Params, Router, Scroll } from "@angular/router";
 import { Post } from "src/app/models/post.model";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { PostService } from "src/app/services/post.service";
@@ -20,6 +20,7 @@ export class NavComponent {
   searchResults = new Array<Post>();
   maxResults = 50;
   scrollTo?: number;
+  scrollToPosts = false;
 
   constructor(
     private postService: PostService,
@@ -47,12 +48,23 @@ export class NavComponent {
         } else {
           this.scrollTo = window.scrollY;
         }
+
+        // Preserve scroll position if new url includes page
+        if (!newContains) {
+          if (event.url.includes('page=')) {
+            this.scrollTo = window.scrollY;
+            this.scrollToPosts = true;
+          }
+        }
+
         return;
       }
 
-      if (isPlatformBrowser(this.platformId)) {
-        if (document.body.scrollHeight != 0 && this.scrollTo) {
-          window.scrollTo(0, this.scrollTo);
+      if (event instanceof Scroll) {
+        if (isPlatformBrowser(this.platformId)) {
+          if (document.body.scrollHeight != 0 && this.scrollTo) {
+            window.scrollTo({left: 0, top: this.scrollTo});
+          }
         }
       }
     });
