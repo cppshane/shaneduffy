@@ -68,6 +68,7 @@ export class NavComponent {
 
   navToSearch() {
     this.scrollTo = window.scrollY;
+    let temp = this.router.url.split('?')[0];
     this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { search: '' }, queryParamsHandling: 'merge' });
   }
 

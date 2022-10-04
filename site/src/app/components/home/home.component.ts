@@ -42,6 +42,9 @@ export class HomeComponent {
         page = pageParam;
         page = page - 1;
       }
+      if (page == this.currentPage && this.blogPosts.length != 0) {
+        return;
+      }
       postService.getBlogPosts(
         "",
         [],
