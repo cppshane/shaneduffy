@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from "@angular/common";
-import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from "@angular/core";
+import { Component, ElementRef, HostListener, Inject, PLATFORM_ID, ViewChild } from "@angular/core";
 import { ActivatedRoute, ActivationEnd, NavigationEnd, NavigationStart, Params, Router, Scroll } from "@angular/router";
 import { Post } from "src/app/models/post.model";
 import { SearchResponse } from "src/app/models/search-response.model";
@@ -11,6 +11,10 @@ import { PostService } from "src/app/services/post.service";
   styleUrls: ["./nav.component.css"]
 })
 export class NavComponent {
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.navOutSearch();
+  }
+
   @ViewChild("searchSidebar", { static: true }) searchSidebar?: ElementRef;
   @ViewChild("searchControl", { static: true }) searchControl?: ElementRef;
   @ViewChild("searchInput", { static: true }) searchInput?: ElementRef;
