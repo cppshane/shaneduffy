@@ -191,6 +191,19 @@
   padding: 0;
 }
 
+#search-sidebar-close {
+  width: 1.3em;
+  height: 1.3em;
+  margin: 1em;
+  position: absolute;
+  cursor: pointer;
+}
+
+#search-sidebar-close img {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .search-sidebar-closed {
   transition-delay: 0.25s;
   margin-left: 100%;

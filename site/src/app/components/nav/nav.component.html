@@ -21,6 +21,9 @@
     </div>
   </div>
   <div #searchSidebar id="search-sidebar" class="search-sidebar-closed background-dark-gray">
+    <div id="search-sidebar-close" (click)="navOutSearch()">
+      <img src="../../../assets/img/close.png"/>
+    </div>
     <div id="menu-controls-container">
       <a [routerLink]="['/']" class="purple-hover">home</a>
       <a [routerLink]="['/about']" class="purple-hover">about</a>
