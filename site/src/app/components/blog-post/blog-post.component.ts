@@ -36,7 +36,7 @@ export class BlogPostComponent extends VideoHandlerComponent implements OnInit {
           this.blogPost = result;
 
           if (this.blogPost?.Image) {
-            if (this.blogPost.Image.startsWith("https://www.youtube.com")) {
+            if (this.blogPost.Image.includes("youtube.com")) {
               this.video = this.blogPost?.Image;
             }
             else {
