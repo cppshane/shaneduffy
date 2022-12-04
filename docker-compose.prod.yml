@@ -25,7 +25,7 @@ services:
             - 4000:4000
     mongodb:
         image: mongo:5.0.8
-        container_name: mongodb
+        container_name: shaneduffy.mongodb
         restart: always
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
