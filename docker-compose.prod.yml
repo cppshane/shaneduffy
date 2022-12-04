@@ -11,6 +11,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Production
         ports:
             - 5000:80
+        restart: always
     shaneduffy-angular-service:
         image: shaneduffy.angular.prod.image
         container_name: shaneduffy.angular.prod.container
@@ -23,6 +24,7 @@ services:
             - app/node_modules/
         ports:
             - 4000:4000
+        restart: always
     mongodb:
         image: mongo:5.0.8
         container_name: shaneduffy.mongodb
@@ -36,3 +38,4 @@ services:
         volumes:
             - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
             - ~/Databases/shaneduffy-database:/data/db
+        
