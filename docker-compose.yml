@@ -7,7 +7,7 @@ services:
         build:
             context: api
             dockerfile: .docker/dev.dockerfile
-        environment:
+        environment:    
             - ASPNETCORE_ENVIRONMENT=Development
             - DOTNET_USE_POLLING_FILE_WATCHER=true
         ports:
@@ -21,7 +21,7 @@ services:
         environment:
             NODE_ENV: development
         volumes:
-            - app/node_modules/
+            - /app/node_modules/
         ports:
             - 4200:80
     mongodb:
