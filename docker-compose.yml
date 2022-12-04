@@ -5,13 +5,25 @@ services:
         image: shaneduffy.api.dev.image
         container_name: shaneduffy.api.dev.container
         build:
-            context: .
+            context: api
             dockerfile: .docker/dev.dockerfile
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - DOTNET_USE_POLLING_FILE_WATCHER=true
         ports:
             - 5000:80
+    shaneduffy-angular-service:
+        image: shaneduffy.angular.dev.image
+        container_name: shaneduffy.angular.dev.container
+        build:
+            context: site
+            dockerfile: .docker/dev.dockerfile
+        environment:
+            NODE_ENV: development
+        volumes:
+            - app/node_modules/
+        ports:
+            - 4200:80
     mongodb:
         image: mongo:5.0.8
         container_name: mongodb

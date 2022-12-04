@@ -5,12 +5,24 @@ services:
         image: shaneduffy.api.prod.image
         container_name: shaneduffy.api.prod.container
         build:
-            context: .
-            dockerfile: .docker/prod.dockerfile
+            context: api
+            dockerfile: .docker/prod.dockerfilec
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
         ports:
             - 5000:80
+    shaneduffy-angular-service:
+        image: shaneduffy.angular.prod.image
+        container_name: shaneduffy.angular.prod.container
+        build:
+            context: site
+            dockerfile: .docker/prod.dockerfile
+        environment:
+            NODE_ENV: production 
+        volumes:
+            - app/node_modules/
+        ports:
+            - 4000:4000
     mongodb:
         image: mongo:5.0.8
         container_name: mongodb
