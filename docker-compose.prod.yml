@@ -6,7 +6,7 @@ services:
         container_name: shaneduffy.api.prod.container
         build:
             context: api
-            dockerfile: .docker/prod.dockerfilec
+            dockerfile: .docker/prod.dockerfile
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
         ports:
