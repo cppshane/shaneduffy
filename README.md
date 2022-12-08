@@ -5,12 +5,19 @@ So this is my personal portfolio/blog site, built with Angular/.NET/Mongo.
 - Docker Prod/Dev Configurations for Angular/.NET Full Stack App
 
 ### Running it
-You can run it with the VS Code configurations or the following Docker command in the API folder and the site folder:
 ```
-docker-compose -f docker-compose.dev.yml up --build
+docker-compose up
+```
+Then just run blogly to create a new post or run migration script to publish.
+```
+blogly new
+```
+```
+bash ~/scripts/migrate.sh
 ```
 
-The API docker will spin up a MongoDB instance that can be accessed via the following address:
+
+Mongo Connection
 ```
 mongodb://shane:password@172.17.0.1:27017/shaneduffy_database?authSource=shaneduffy_database
 ```
