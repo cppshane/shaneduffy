@@ -121,6 +121,10 @@ code {
   background: #808080;
 }
 
+.text-italic {
+  font-style: italic;
+}
+
 .text-link {
   border-bottom: #4d4d4d 0.04em solid;
   transition-duration: 0.2s;
