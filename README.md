@@ -15,7 +15,10 @@ blogly new
 ```
 bash ~/scripts/migrate.sh
 ```
-
+To start listening again
+```
+blogly listen 10 /home/shane/workspace
+```
 
 Mongo Connection
 ```
