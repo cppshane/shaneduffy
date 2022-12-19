@@ -3,6 +3,7 @@
     <iframe *ngIf="video != null" [src]="video | safe:'resourceUrl'" class="video-handler"
       allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
       oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
+    <a *ngIf="image != null" [routerLink]="['/blog/' + blogPost?.Uri]"><img [src]="image | safe:'resourceUrl'"></a>
     <a *ngIf="blogPost?.Uri != null" id="blog-list-item-title" class="title-link"
       [routerLink]="['/blog/' + blogPost?.Uri]">
       <h1>{{ blogPost?.Title }}</h1>

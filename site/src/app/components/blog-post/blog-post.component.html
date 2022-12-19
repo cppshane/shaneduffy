@@ -3,6 +3,7 @@
     <iframe *ngIf="video != null" [src]="video | safe:'resourceUrl'" class="video-handler"
     allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
     oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
+    <img *ngIf="image != null" [src]="image | safe:'resourceUrl'">
     <div id="preview-container">
       <p>
         {{ blogPost?.Preview }}
