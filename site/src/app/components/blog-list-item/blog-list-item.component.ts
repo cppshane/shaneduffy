@@ -13,17 +13,11 @@ export class BlogListItemComponent extends VideoHandlerComponent {
   image: string | null = null;
   
   async ngOnChanges() {
-    if (this.blogPost?.Image) {
-      if (this.blogPost.Image.startsWith("https://www.youtube.com")) {
-        if (!this.video) {
-          
-          this.video = this.blogPost?.Image;
-        }
-      }
-      else {
-        if (!this.image) {
-          this.image = this.blogPost?.Image;
-        }
+    if (this.blogPost) {
+      if (this.blogPost.Video) {
+        this.video = this.blogPost.Video;
+      } else if (this.blogPost.Image) {
+        this.image = this.blogPost.Image;
       }
     }
   }

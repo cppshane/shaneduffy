@@ -35,17 +35,14 @@ export class BlogPostComponent extends VideoHandlerComponent implements OnInit {
         this.blogService.getBlogPost(params.uri, (result: Post) => {
           this.blogPost = result;
 
-          if (this.blogPost?.Image) {
-            if (this.blogPost.Image.includes("youtube.com")) {
-              this.video = this.blogPost?.Image;
-            }
-            else {
-              this.image = this.blogPost?.Image;
-            }
-          }
-
           if (this.blogPost)
             this.titleService.setTitle(this.blogPost.Title);
+
+            if (this.blogPost.Video) {
+              this.video = this.blogPost.Video;
+            } else if (this.blogPost.Image) {
+              this.image = this.blogPost.Image;
+            }
         });
       }
     });

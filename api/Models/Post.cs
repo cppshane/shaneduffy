@@ -20,6 +20,8 @@ namespace shaneduffy.Models
         public string Type { get; set; }
         [BsonElement("image")]
         public string Image { get; set; }
+        [BsonElement("video")]
+        public string Video { get; set; }
         [BsonElement("preview")]
         public string Preview { get; set; }
         [BsonElement("content")]

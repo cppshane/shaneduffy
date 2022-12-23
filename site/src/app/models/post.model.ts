@@ -3,6 +3,7 @@ export class Post {
   Uri: string;
   Title: string;
   Image: string;
+  Video: string;
   Preview: string;
   Content: string;
   Date: Date;
