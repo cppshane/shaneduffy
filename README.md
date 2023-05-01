@@ -6,7 +6,7 @@ So this is my personal portfolio/blog site, built with Angular/.NET/Mongo.
 
 ### Running it
 ```
-docker-compose up
+docker compose up
 ```
 Then just run blogly to create a new post or run migration script to publish. (Admin terminal required for it to open VS Code after completion)
 ```
