@@ -6,6 +6,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { NotesPostComponent } from "./components/notes-post/notes-post.component";
 import { NotesComponent } from "./components/notes/notes.component";
 import { ProjectsComponent } from "./components/projects/projects.component";
+import { KntBotComponent } from "./components/knt-bot/knt-bot.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: "blog/:uri", component: BlogPostComponent, pathMatch: "full" },
   { path: "notes", component: NotesComponent, pathMatch: "full" },
   { path: "notes/:uri", component: NotesPostComponent, pathMatch: "full" },
+  { path: "knt-bot", component: KntBotComponent, pathMatch: "full" },
 ];
 
 @NgModule({
