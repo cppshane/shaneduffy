@@ -36,6 +36,6 @@ services:
         ports:
             - 27017:27017
         volumes:
-            - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+            - ./api/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
             - ~/Databases/shaneduffy-database:/data/db
         

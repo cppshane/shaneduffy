@@ -22,7 +22,6 @@ import { NotesComponent } from './components/notes/notes.component';
 import { PostService } from './services/post.service';
 
 import { SafePipe } from './pipes/safe.pipe';
-import { KntBotComponent } from './components/knt-bot/knt-bot.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { KntBotComponent } from './components/knt-bot/knt-bot.component';
     AboutComponent,
     ProjectsComponent,
     HeaderComponent,
-    KntBotComponent,
     SafePipe
   ],
   imports: [
