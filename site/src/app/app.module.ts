@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HomeComponent } from './components/home/home.component';
+import { VideosComponent } from './components/videos/videos.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component'
@@ -27,6 +28,7 @@ import { SafePipe } from './pipes/safe.pipe';
   declarations: [
     AppComponent,
     HomeComponent,
+    VideosComponent,
     BlogPostComponent,
     NotesComponent,
     NotesPostComponent,

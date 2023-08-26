@@ -1,0 +1,13 @@
+<div id="videos-container">
+  <div #blogSectionContainer id="blog-section-container">
+    <app-blog-list-item *ngFor="let blogPost of blogPosts; let i = index" [blogPost]="blogPost"
+      [ngClass]="i % 2 == 0 ? 'background-gray-1' : 'background-gray-2'"></app-blog-list-item>
+  </div>
+  <div id="blog-pagination-container" class="background-purple">
+    <a (click)="pageClick(i)" class="button-container background-dark-gray-hover cursor-pointer flex-column"
+      *ngFor="let page of [].constructor(totalPages); let i = index">
+      <div class="pagination-text">{{ i + 1 }}</div>
+      <div *ngIf="i === currentPage" class="pagination-underline background-off-white"></div>
+    </a>
+  </div>
+</div>
