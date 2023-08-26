@@ -46,9 +46,7 @@ export class VideosComponent {
         return;
       }
 
-      postService.getBlogPosts(
-        "",
-        [],
+      postService.getAllVideoPosts(
         page,
         this.postsPerPage,
         (searchResponse: SearchResponse) => {
@@ -56,10 +54,8 @@ export class VideosComponent {
           this.currentPage = searchResponse.CurrentPage;
           this.blogPosts = [];
           for (const blogPost of searchResponse.Posts) {
-            if (blogPost.Video) {
-              this.blogPosts.push(blogPost);
-            }
-          } 
+            this.blogPosts.push(blogPost);
+          }
           if (pageParam != null) {
             this.blogSectionContainer?.nativeElement.scrollIntoView({
               behavior: "smooth",

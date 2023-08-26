@@ -47,5 +47,21 @@ namespace shaneduffy.Services
         {
             return await _posts.Find(post => post.Uri.Equals(notesPostUri) && post.Type.Equals("notes")).FirstOrDefaultAsync();
         }
+
+        public async Task<SearchResponse> GetAllVideoPosts(int page, int pageCount) {
+            var result = new SearchResponse();
+            result.TotalPages = (int)Math.Ceiling((double)await _posts
+                .Find(post => post.Video != null && post.Video != string.Empty && post.Type.Equals("blog"))
+                .CountDocumentsAsync() / pageCount);
+            result.CurrentPage = page;
+            result.Posts = await _posts
+                .Find(post => post.Video != null && post.Video != string.Empty && post.Type.Equals("blog"))
+                .SortByDescending(o => o.Date)
+                .Skip(page * pageCount)
+                .Limit(pageCount)
+                .ToListAsync();
+
+            return result;
+        }
     }
 }

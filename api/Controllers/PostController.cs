@@ -24,6 +24,12 @@ namespace shaneduffy.Controllers
             return await _postService.SearchBlogPosts(searchString, "", page, postsPerPage);
         }
 
+        [HttpGet("videos")]
+        public async Task<SearchResponse> GetAllVideoPosts(int page = 0, int postsPerPage = DefaultPostsPerPage)
+        {
+            return await _postService.GetAllVideoPosts(page, postsPerPage);
+        }
+
         [HttpGet("blog/{uri}")]
         public async Task<Post> GetBlogPost(string uri)
         {

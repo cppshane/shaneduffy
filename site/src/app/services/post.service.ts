@@ -42,6 +42,27 @@ export class PostService {
       );
   }
 
+  getAllVideoPosts(
+    page: number,
+    postsPerPage: number,
+    callback: (result: SearchResponse) => void
+  ) {
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("page", page.toString());
+    httpParams = httpParams.append("postsPerPage", postsPerPage.toString());
+
+    this.httpClient
+      .get<SearchResponse>(this.baseUrl + "post/videos", { params: httpParams })
+      .subscribe(
+        (result) => {
+          callback(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
   getBlogPost(uri: string, callback: (result: Post) => void) {
     this.httpClient.get<Post>(this.baseUrl + "post/blog/" + uri).subscribe(
       (result) => {
