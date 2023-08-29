@@ -53,6 +53,12 @@ export class HeaderComponent {
           this.standardDisplayStyle = "flex";
 
           this.standardTitle = "About";
+        } else if (page === "videos") {
+          this.homeDisplayStyle = "none";
+          this.blogPostDisplayStyle = "none";
+          this.standardDisplayStyle = "flex";
+
+          this.standardTitle = "Videos";
         } else if (page.startsWith("projects")) {
           this.homeDisplayStyle = "none";
           this.blogPostDisplayStyle = "none";
