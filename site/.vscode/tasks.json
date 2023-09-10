@@ -10,7 +10,7 @@
           "build": true,
           "services": ["shaneduffy-angular-service"]
         },
-        "files": ["${workspaceFolder}/docker-compose.dev.yml"]
+        "files": ["${workspaceFolder}/../docker-compose.yml"]
       }
     },
     {
@@ -18,10 +18,16 @@
       "type": "docker-compose",
       "dockerCompose": {
         "down": {
-          "removeVolumes": false
+          "removeVolumes": false,
+          "services": ["shaneduffy-angular-service"]
         },
-        "files": ["${workspaceFolder}/docker-compose.dev.yml"]
+        "files": ["${workspaceFolder}/../docker-compose.yml"]
       }
-    }
+    },
+    {
+      "label": "echo",
+      "type": "shell",
+      "command": "pwd"
+  }
   ]
 }

@@ -22,7 +22,7 @@
           "build": true,
           "services": ["shaneduffy-api-service", "mongodb"]
         },
-        "files": ["${workspaceFolder}/docker-compose.dev.yml"]
+        "files": ["${workspaceFolder}/../docker-compose.yml"]
       }
     },
     {
@@ -30,9 +30,10 @@
       "type": "docker-compose",
       "dockerCompose": {
         "down": {
-          "removeVolumes": false
+          "removeVolumes": false,
+          "services": ["shaneduffy-api-service", "mongodb"]
         },
-        "files": ["${workspaceFolder}/docker-compose.dev.yml"]
+        "files": ["${workspaceFolder}/../docker-compose.yml"]
       }
     }
   ]
