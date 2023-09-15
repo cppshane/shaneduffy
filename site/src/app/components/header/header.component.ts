@@ -53,12 +53,6 @@ export class HeaderComponent {
           this.standardDisplayStyle = "flex";
 
           this.standardTitle = "About";
-        } else if (page === "crack") {
-          this.homeDisplayStyle = "none";
-          this.blogPostDisplayStyle = "none";
-          this.standardDisplayStyle = "flex";
-
-          this.standardTitle = "giving up on life and pooping on market street is very different from doing amphetamines to write more code";
         } else if (page === "videos") {
           this.homeDisplayStyle = "none";
           this.blogPostDisplayStyle = "none";
