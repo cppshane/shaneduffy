@@ -1,0 +1,14 @@
+.about-links-container {
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+@media screen and (max-width: 450px) {
+  .about-links-container a {
+    font-size: 0.6rem;
+  }
+  .about-links-container p {
+    line-height: 1.2rem !important;
+  }
+}
