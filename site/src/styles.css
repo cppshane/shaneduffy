@@ -83,6 +83,16 @@ a {
 }
 
 li {
+  font-family: 'Montserrat', sans-serif;
+  color: #e8e8e8;
+  font-size: 1.0rem;
+  line-height: 2rem;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+
+ul, ol {
+  font-family: 'Montserrat', sans-serif;
   color: #e8e8e8;
 }
 
@@ -223,6 +233,7 @@ code {
 
 .notes-section-container-inner ul {
   padding: 0 0 0 1em;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .notes-section-container div {
@@ -278,6 +289,21 @@ code {
   max-width: 50em;
   padding: 5em;
   margin: 0 auto;
+}
+
+.content-section-container ul,
+.content-section-container ol {
+  font-family: 'Montserrat', sans-serif;
+  color: #e8e8e8;
+}
+
+.content-section-container li {
+  font-family: 'Montserrat', sans-serif;
+  color: #e8e8e8;
+  font-size: 1.0rem;
+  line-height: 2rem;
+  letter-spacing: 0.02em;
+  font-weight: 400;
 }
 
 .content-section-container img {
