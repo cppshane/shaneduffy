@@ -666,7 +666,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
     this.shaders.particleCompute.uInputPosValue[0] = this.inputPos[0];
     this.shaders.particleCompute.uInputPosValue[1] = this.inputPos[1];
     this.shaders.particleCompute.uInputPosValue[2] = this.inputPos[2];
-    const centerPos = this.camera.getPointOnTargetPlane(0.5, 0.62);
+    const centerPos = this.camera.getPointOnTargetPlane(0.5, 0.7);
     this.shaders.particleCompute.uCenterPosValue[0] = centerPos[0];
     this.shaders.particleCompute.uCenterPosValue[1] = centerPos[1];
     this.shaders.particleCompute.uCenterPosValue[2] = centerPos[2];
