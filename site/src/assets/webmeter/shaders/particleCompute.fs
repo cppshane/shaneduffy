@@ -20,6 +20,8 @@ uniform float uTime;
 uniform float uDeltaT;
 uniform vec3 uInputPos;
 uniform float uKForce;
+uniform vec3 uCenterPos;
+uniform float uCenterKForce;
 uniform sampler2D uTexture0;
 uniform sampler2D uTexture1;
 uniform sampler2D uTexture2;
@@ -35,9 +37,13 @@ void main() {
   vec3 vel = texture2D(uTexture1, uv).rgb;
   vec3 testVal = texture2D(uTexture2, uv).rgb;
 
-  vec3 toCenter = uInputPos - pos;
-  float toCenterLength = length(toCenter);
-  vec3 accel = (toCenter/toCenterLength) * uKForce / toCenterLength;
+  vec3 toMouse = uInputPos - pos;
+  float toMouseLen = length(toMouse) + EPS;
+  vec3 accel = (toMouse / toMouseLen) * uKForce / toMouseLen;
+
+  vec3 toCenter = uCenterPos - pos;
+  float toCenterLen = length(toCenter) + EPS;
+  accel += (toCenter / toCenterLen) * uCenterKForce / toCenterLen;
 
   pos += vel * uDeltaT;
   vel = K_VEL_DECAY * vel + accel * uDeltaT;

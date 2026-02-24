@@ -179,7 +179,8 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
   backgroundColor = "#232526";
   particleColor = "#030311";
   alpha = 0.7;
-  gravity = 1.2;
+  gravity = 0.65;
+  centerGravity = 2.0;
 
   private animationId = 0;
   private gl: WebGLRenderingContext | null = null;
@@ -231,13 +232,17 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
         uDeltaT: WebGLUniformLocation | null;
         uInputPos: WebGLUniformLocation | null;
         uKForce: WebGLUniformLocation | null;
+        uCenterPos: WebGLUniformLocation | null;
+        uCenterKForce: WebGLUniformLocation | null;
         uTexture0: WebGLUniformLocation | null;
         uTexture1: WebGLUniformLocation | null;
         uTexture2: WebGLUniformLocation | null;
       };
-      uKForceValue: number;
-      uInputPosValue: glm.vec3;
-    };
+        uKForceValue: number;
+        uCenterKForceValue: number;
+        uInputPosValue: glm.vec3;
+        uCenterPosValue: glm.vec3;
+      };
     particleInit: {
       program: WebGLProgram;
       attributes: { aPosition: number };
@@ -343,12 +348,22 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
           uDeltaT: gl.getUniformLocation(particleComputeProgram, "uDeltaT"),
           uInputPos: gl.getUniformLocation(particleComputeProgram, "uInputPos"),
           uKForce: gl.getUniformLocation(particleComputeProgram, "uKForce"),
+          uCenterPos: gl.getUniformLocation(
+            particleComputeProgram,
+            "uCenterPos"
+          ),
+          uCenterKForce: gl.getUniformLocation(
+            particleComputeProgram,
+            "uCenterKForce"
+          ),
           uTexture0: gl.getUniformLocation(particleComputeProgram, "uTexture0"),
           uTexture1: gl.getUniformLocation(particleComputeProgram, "uTexture1"),
           uTexture2: gl.getUniformLocation(particleComputeProgram, "uTexture2"),
         },
         uKForceValue: this.gravity,
+        uCenterKForceValue: this.centerGravity,
         uInputPosValue: [0, 0, 0],
+        uCenterPosValue: [0, 0, 0],
       },
       particleInit: {
         program: particleInitProgram,
@@ -554,6 +569,13 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
       s.uInputPosValue[2]
     );
     gl.uniform1f(s.uniforms.uKForce, s.uKForceValue);
+    gl.uniform3f(
+      s.uniforms.uCenterPos!,
+      s.uCenterPosValue[0],
+      s.uCenterPosValue[1],
+      s.uCenterPosValue[2]
+    );
+    gl.uniform1f(s.uniforms.uCenterKForce!, s.uCenterKForceValue);
     gl.useProgram(null);
 
     const fromBuf = this.particleComputeBuffers[0];
@@ -644,6 +666,10 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
     this.shaders.particleCompute.uInputPosValue[0] = this.inputPos[0];
     this.shaders.particleCompute.uInputPosValue[1] = this.inputPos[1];
     this.shaders.particleCompute.uInputPosValue[2] = this.inputPos[2];
+    const centerPos = this.camera.getPointOnTargetPlane(0.5, 0.62);
+    this.shaders.particleCompute.uCenterPosValue[0] = centerPos[0];
+    this.shaders.particleCompute.uCenterPosValue[1] = centerPos[1];
+    this.shaders.particleCompute.uCenterPosValue[2] = centerPos[2];
     this.draw(gl);
   };
 }
