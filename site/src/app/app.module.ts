@@ -17,7 +17,7 @@ import { BlogListItemComponent } from './components/blog-list-item/blog-list-ite
 import { AboutComponent } from './components/about/about.component'
 import { ProjectsComponent } from './components/projects/projects.component'
 import { HeaderComponent } from './components/header/header.component';
-import { InvadersBackgroundComponent } from './components/header/invaders-background/invaders-background.component';
+import { ParticlesBackgroundComponent } from './components/header/particles-background/particles-background.component';
 import { NotesPostComponent } from './components/notes-post/notes-post.component';
 import { NotesComponent } from './components/notes/notes.component';
 
@@ -39,7 +39,7 @@ import { SafePipe } from './pipes/safe.pipe';
     AboutComponent,
     ProjectsComponent,
     HeaderComponent,
-    InvadersBackgroundComponent,
+    ParticlesBackgroundComponent,
     SafePipe
   ],
   imports: [
