@@ -20,3 +20,10 @@
 .project-title-container > a > fa-icon {
   font-size: 1.5rem;
 }
+
+/* lucent.earth wordmark: keep lowercase, slightly open tracking */
+.project-title-lucent {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
