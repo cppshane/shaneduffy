@@ -11,22 +11,27 @@ export class BlogListItemComponent extends VideoHandlerComponent {
   @Input() blogPost?: Post;
   video: string | null = null;
   image: string | null = null;
-  
-  async ngOnChanges() {
-    if (this.blogPost) {
-      if (this.blogPost.Video) {
-        this.video = this.blogPost.Video;
-      } else if (this.blogPost.Image) {
-        this.image = this.blogPost.Image;
-      }
+  videoPoster: string | null = null;
+  videoPlaying = false;
+
+  ngOnChanges() {
+    this.video = this.blogPost?.Video || null;
+    this.image = this.video ? null : this.blogPost?.Image || null;
+    this.videoPoster = null;
+    this.videoPlaying = false;
+    if (this.video) {
+      try {
+        const url = new URL(this.video);
+        const host = url.hostname.replace(/^www\./, '');
+        const id = host === 'youtu.be' ? url.pathname.slice(1) :
+          host === 'youtube.com' ? url.searchParams.get('v') || url.pathname.split('/embed/')[1] : null;
+        if (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) {
+          this.videoPoster = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+          this.video = `https://www.youtube.com/embed/${id}`;
+        }
+      } catch { /* Keep existing non-YouTube video URLs. */ }
     }
   }
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
-  ngAfterViewInit() {
-    super.onResize();
-  }
+  ngAfterViewInit() { super.onResize(); }
 }

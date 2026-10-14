@@ -10,6 +10,7 @@ import { PostService } from "src/app/services/post.service";
   styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent {
+  particlesPaused = false;
   homeDisplayStyle = "none";
   blogPostDisplayStyle = "none";
   standardDisplayStyle = "none";
@@ -20,20 +21,18 @@ export class HeaderComponent {
   constructor(
     private postService: PostService,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Record<string, unknown> 
+    @Inject(PLATFORM_ID) private platformId: Record<string, unknown>
   ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.particlesPaused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
     this.routeEvent(this.router);
   }
 
   routeEvent(router: Router) {
     router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        let rawpageId = e.url;
-
-        const queryDelimiter = e.url.indexOf("?");
-        if (queryDelimiter != -1) {
-          rawpageId = e.url.substring(0, queryDelimiter);
-        }
+        const rawpageId = e.urlAfterRedirects.split(/[?#]/)[0];
 
         const parts = rawpageId.split("/");
         let page = "";
@@ -89,7 +88,7 @@ export class HeaderComponent {
           });
         }
 
-        if (isPlatformBrowser(this.platformId)) window.scrollTo(0, 0);
+        if (isPlatformBrowser(this.platformId) && !e.url.includes("#")) window.scrollTo(0, 0);
       }
     });
   }

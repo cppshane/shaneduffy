@@ -1,56 +1,19 @@
-#blog-list-item-container {
-  width: 100%;
-  padding: 2.5em 0;
-}
-
-#blog-list-item-title > h1 {
-  margin-block-start: 0.5em;
-  transition-duration: 0.2s;
-  font-weight: 600;
-  font-size: 2.5rem;
-  line-height: 3rem;
-}
-
-.title-link:hover > h1 {
-  color: #fefefea8;
-}
-
-#blog-list-item-header-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#blog-list-item-header-container > time {
-  white-space: nowrap;
-  margin-left: 1em;
-}
-
-@media screen and (max-width: 540px) {
-  #blog-list-item-header-container {
-    flex-direction: column;
-  }
-  #blog-list-item-header-container > time {
-    margin-left: 0em;
-  }
-  #blog-list-item-title > h1 {
-    font-size: 1.6rem;
-    line-height: 2.3rem;
-  }
-}
-
-@media screen and (max-width: 380px) {
-  #blog-list-item-title > h1 {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-  }
-}
-
-#blog-list-item-keywords-container {
-  float: left;
-}
-
-#blog-list-item-date-text {
-  float: right;
-  margin: 0 0 0 2em;
+.video-entry { display: flex; gap: 24px; align-items: flex-start; }
+.post-media { width: 260px; flex-shrink: 0; }
+.post-media img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+.post-text { flex: 1; min-width: 0; }
+.post-text time { font: 11px/1.7 var(--mono); color: var(--muted); }
+.post-text h2 { font: 400 13px/1.75 var(--mono); margin: 10px 0; letter-spacing: 0; }
+.post-text h2 a { color: var(--text); }
+.post-text h2 a:hover { text-decoration: underline; }
+.post-text p { font: 11px/1.85 var(--mono); color: var(--muted); margin: 0; }
+.video-poster { display: block; position: relative; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.video-poster span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 20px; color: white; text-shadow: 0 2px 16px #000; }
+.video-poster img { opacity: .8; transition: opacity .2s; }
+.video-poster:hover img { opacity: 1; }
+.video-handler { display: block; }
+@media(max-width:650px) {
+  .video-entry { flex-direction: column; gap: 14px; }
+  .post-media { width: 100%; }
+  .post-text h2 { font-size: 12px; margin: 6px 0 10px; }
 }

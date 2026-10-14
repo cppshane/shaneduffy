@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   ElementRef,
   ViewChild,
   AfterViewInit,
@@ -176,7 +177,8 @@ class CameraControls {
 export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
   @ViewChild("canvas") canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  backgroundColor = "#232526";
+  @Input() paused = false;
+  private destroyed = false;
   particleColor = "#030311";
   alpha = 0.7;
   gravity = 0.65;
@@ -263,13 +265,30 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
     if (this.animationId) cancelAnimationFrame(this.animationId);
+    const gl = this.gl;
+    if (gl) {
+      for (const buffer of this.particleComputeBuffers) {
+        buffer.textures.forEach(texture => gl.deleteTexture(texture));
+        gl.deleteFramebuffer(buffer.frameBuffer);
+      }
+      gl.deleteBuffer(this.particleUVBuffer);
+      gl.deleteBuffer(this.quadBuffer);
+      if (this.shaders) {
+        gl.deleteProgram(this.shaders.particle.program);
+        gl.deleteProgram(this.shaders.particleCompute.program);
+        gl.deleteProgram(this.shaders.particleInit.program);
+      }
+    }
   }
 
   @HostListener("document:mousemove", ["$event"])
   onMouseMove(e: MouseEvent): void {
-    this.mouseX = e.clientX / window.innerWidth;
-    this.mouseY = 1 - e.clientY / window.innerHeight;
+    const rect = this.canvasRef?.nativeElement.getBoundingClientRect();
+    if (!rect || !rect.width || !rect.height) return;
+    this.mouseX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    this.mouseY = 1 - Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
   }
 
   private async runParticles(canvas: HTMLCanvasElement): Promise<void> {
@@ -296,7 +315,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
     const compVs = await this.fetchShader("particleCompute.vs");
     const compFs = await this.fetchShader("particleCompute.fs");
     const initFs = await this.fetchShader("particleInit.fs");
-    if (!vs || !fs || !compVs || !compFs || !initFs) return;
+    if (this.destroyed || !vs || !fs || !compVs || !compFs || !initFs) return;
 
     this.gl = gl;
     this.ext = extDrawBuffers;
@@ -308,7 +327,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
       canvas.width / canvas.height
     );
     this.cameraControls = new CameraControls(this.camera);
-    this.cameraControls.radius = 5;
+    this.cameraControls.radius = 2.8;
 
     const particleProgram = this.compileProgram(gl, vs, fs);
     const particleComputeProgram = this.compileProgram(gl, compVs, compFs);
@@ -397,6 +416,9 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
     this.initQuadBuffer(gl);
     this.initComputeBuffers(gl);
     this.drawParticleInit(gl);
+    this.cameraControls.update();
+    this.camera.update();
+    this.draw(gl);
     this.ngZone.runOutsideAngular(() => this.animate(canvas));
   }
 
@@ -646,11 +668,13 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
   }
 
   private animate = (canvas: HTMLCanvasElement): void => {
+    if (this.destroyed) return;
     this.animationId = requestAnimationFrame(() => this.animate(canvas));
     const gl = this.gl;
     if (!gl || !this.shaders || !this.camera || !this.cameraControls) return;
 
     const deltaT = this.clock.getDelta();
+    if (this.paused || document.hidden || canvas.getBoundingClientRect().bottom < 0) return;
     this.fixedTimeRemainder = Math.min(
       this.fixedTimeRemainder + deltaT,
       this.FIXED_TIME_STEP_MAX
@@ -666,7 +690,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
     this.shaders.particleCompute.uInputPosValue[0] = this.inputPos[0];
     this.shaders.particleCompute.uInputPosValue[1] = this.inputPos[1];
     this.shaders.particleCompute.uInputPosValue[2] = this.inputPos[2];
-    const centerPos = this.camera.getPointOnTargetPlane(0.5, 0.7);
+    const centerPos = this.camera.getPointOnTargetPlane(0.58, canvas.width < 760 ? 0.50 : 0.53);
     this.shaders.particleCompute.uCenterPosValue[0] = centerPos[0];
     this.shaders.particleCompute.uCenterPosValue[1] = centerPos[1];
     this.shaders.particleCompute.uCenterPosValue[2] = centerPos[2];

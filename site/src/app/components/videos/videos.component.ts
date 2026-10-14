@@ -1,10 +1,11 @@
 import {
-  ChangeDetectorRef,
   Component,
+  Inject,
+  PLATFORM_ID,
   ElementRef,
   ViewChild,
 } from "@angular/core";
-import { Location } from "@angular/common";
+import { isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { Post } from "../../models/post.model";
@@ -21,16 +22,16 @@ export class VideosComponent {
   blogSectionContainer!: ElementRef;
   readonly postsPerPage = 5;
   blogPosts: Array<Post> = new Array<Post>();
+  postsFailed = false;
   totalPages = 0;
   currentPage = 0;
 
   constructor(
     private postService: PostService,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
-    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    @Inject(PLATFORM_ID) private platformId: Record<string, unknown>
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       const pageParam = params["page"];
@@ -46,6 +47,7 @@ export class VideosComponent {
         return;
       }
 
+      this.postsFailed = false;
       postService.getAllVideoPosts(
         page,
         this.postsPerPage,
@@ -56,13 +58,14 @@ export class VideosComponent {
           for (const blogPost of searchResponse.Posts) {
             this.blogPosts.push(blogPost);
           }
-          if (pageParam != null) {
+          if (pageParam != null && isPlatformBrowser(this.platformId)) {
             this.blogSectionContainer?.nativeElement.scrollIntoView({
               behavior: "smooth",
               block: "start",
             });
           }
-        }
+        },
+        () => { this.postsFailed = true; }
       );
     });
   }
@@ -72,6 +75,11 @@ export class VideosComponent {
   }
 
   pageClick(i: number) {
-    this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { page: (i + 1).toString() }, queryParamsHandling: 'merge' });
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { page: (i + 1).toString() },
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
   }
 }

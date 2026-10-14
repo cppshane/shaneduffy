@@ -1,13 +1,4 @@
-#footer-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 5em;
-  padding-bottom: 5em;
-}
-
-#footer-profile-image {
-  width: 7em;
-  height: 7em;
-}
+#footer-container { box-sizing: border-box; max-width: 928px; margin: auto; padding: 0 24px 40px; display: flex; align-items: center; gap: 32px; font: 10px var(--mono); }
+#footer-container a { color: var(--muted); }
+#footer-container a:hover { color: var(--text); text-decoration: underline; }
+nav { display: flex; gap: 20px; }

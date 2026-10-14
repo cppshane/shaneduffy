@@ -1,0 +1,47 @@
+.site-shell {
+  --grid-center-y: 180px;
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.site-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(156,167,161,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(156,167,161,.07) 1px, transparent 1px);
+  background-size: 42px 42px;
+  -webkit-mask-image: radial-gradient(ellipse at 58% var(--grid-center-y), #000 25%, transparent 90%);
+  mask-image: radial-gradient(ellipse at 58% var(--grid-center-y), #000 25%, transparent 90%);
+}
+
+.page-end { position: absolute; bottom: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
+.miku-peek {
+  --miku-size: 128px;
+  position: fixed;
+  right: 24px;
+  bottom: 0;
+  z-index: 10;
+  width: var(--miku-size);
+  height: 96px;
+  pointer-events: auto;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  image-rendering: pixelated;
+  background: url('/assets/img/miku-idle.png') 0 -68px / 2000% auto no-repeat;
+  transform: translateY(105%);
+  visibility: hidden;
+  transition: transform .35s cubic-bezier(.2,.8,.3,1), visibility 0s .35s;
+  animation: miku-idle 2s steps(20) infinite paused;
+}
+.miku-peek.miku-visible { transform: translateY(0); visibility: visible; transition-delay: 0s; animation-play-state: running; }
+@keyframes miku-idle { to { background-position-x: calc(var(--miku-size) * -20); } }
+@media(max-width:650px) {
+  .site-shell { --grid-center-y: 150px; }
+  .miku-peek { --miku-size: 96px; height: 72px; right: 12px; background-position-y: -51px; }
+}

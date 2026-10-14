@@ -1,13 +1,13 @@
 <div id="home-container">
-  <div #blogSectionContainer id="blog-section-container">
-    <app-blog-list-item *ngFor="let blogPost of blogPosts; let i = index" [blogPost]="blogPost"
-      [ngClass]="i % 2 == 0 ? 'background-gray-1' : 'background-gray-2'"></app-blog-list-item>
-  </div>
-  <div id="blog-pagination-container" class="background-purple">
-    <a (click)="pageClick(i)" class="button-container background-dark-gray-hover cursor-pointer flex-column"
-      *ngFor="let page of [].constructor(totalPages); let i = index">
-      <div class="pagination-text">{{ i + 1 }}</div>
-      <div *ngIf="i === currentPage" class="pagination-underline background-off-white"></div>
-    </a>
-  </div>
+  <section #blogSectionContainer id="writing" class="home-section" aria-labelledby="writing-title">
+    <h2 id="writing-title">Notes</h2>
+    <ul class="post-index"><li *ngFor="let post of blogPosts"><time [dateTime]="post.Date">{{ post.Date | date:'yyyy-MM-dd' }}</time><a *ngIf="post.Uri" [routerLink]="['/blog/' + post.Uri]">{{ post.Title }}</a><a *ngIf="!post.Uri && post.Video" [href]="post.Video" target="_blank" rel="noopener noreferrer">{{ post.Title }}</a><span *ngIf="!post.Uri && !post.Video">{{ post.Title }}</span></li></ul>
+    <p *ngIf="!blogPosts.length" class="feed-status">{{ postsFailed ? 'Could not load the posts.' : 'Loading…' }}</p>
+    <nav *ngIf="totalPages > 1" class="pagination" aria-label="Archive pages"><button type="button" (click)="pageClick(i)" [class.current-page]="i === currentPage" [attr.aria-current]="i === currentPage ? 'page' : null" [attr.aria-label]="'Page ' + (i + 1)" *ngFor="let page of [].constructor(totalPages); let i = index">{{ i + 1 }}</button></nav>
+  </section>
+  <section id="selected-projects" class="home-section" aria-labelledby="projects-title">
+    <h2 id="projects-title">Projects</h2>
+    <ul class="project-index"><li><a href="https://lucent.earth" target="_blank" rel="noopener noreferrer">lucent.earth</a><span>Live streams and radio on a WebGL globe.</span></li><li><a href="https://xenith.ai" target="_blank" rel="noopener noreferrer">Xenith</a><span>AI in the browser with WebAssembly.</span></li><li><a href="https://cppshane.github.io/dynamic-particle-simulator/" target="_blank" rel="noopener noreferrer">Dynamic Particle Simulator</a><span>N-body simulations and galactic collisions.</span></li></ul>
+    <a class="all-projects" [routerLink]="['/projects']">All projects</a>
+  </section>
 </div>

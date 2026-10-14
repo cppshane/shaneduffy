@@ -11,7 +11,7 @@ export class PostService {
 
   constructor(private httpClient: HttpClient) {
     if (isDevMode()) {
-      this.baseUrl = "http://localhost:5000/api/";
+      this.baseUrl = "/api/";
     } else {
       this.baseUrl = "https://shaneduffy.io/api/";
     }
@@ -22,7 +22,8 @@ export class PostService {
     keywords: Array<string>,
     page: number,
     postsPerPage: number,
-    callback: (result: SearchResponse) => void
+    callback: (result: SearchResponse) => void,
+    onError?: () => void
   ) {
     let httpParams = new HttpParams();
     httpParams = httpParams.append("searchString", searchString);
@@ -37,6 +38,7 @@ export class PostService {
           callback(result);
         },
         (error) => {
+          onError?.();
           console.log(error);
         }
       );
@@ -45,7 +47,8 @@ export class PostService {
   getAllVideoPosts(
     page: number,
     postsPerPage: number,
-    callback: (result: SearchResponse) => void
+    callback: (result: SearchResponse) => void,
+    onError?: () => void
   ) {
     let httpParams = new HttpParams();
     httpParams = httpParams.append("page", page.toString());
@@ -58,6 +61,7 @@ export class PostService {
           callback(result);
         },
         (error) => {
+          onError?.();
           console.log(error);
         }
       );

@@ -1,13 +1,12 @@
 <div id="videos-container">
   <div #blogSectionContainer id="blog-section-container">
-    <app-blog-list-item *ngFor="let blogPost of blogPosts; let i = index" [blogPost]="blogPost"
-      [ngClass]="i % 2 == 0 ? 'background-gray-1' : 'background-gray-2'"></app-blog-list-item>
+    <app-blog-list-item *ngFor="let blogPost of blogPosts" [blogPost]="blogPost"></app-blog-list-item>
+    <p *ngIf="!blogPosts.length" class="feed-status">{{ postsFailed ? 'Could not load the videos.' : 'Loading…' }}</p>
   </div>
-  <div id="blog-pagination-container" class="background-purple">
-    <a (click)="pageClick(i)" class="button-container background-dark-gray-hover cursor-pointer flex-column"
-      *ngFor="let page of [].constructor(totalPages); let i = index">
-      <div class="pagination-text">{{ i + 1 }}</div>
-      <div *ngIf="i === currentPage" class="pagination-underline background-off-white"></div>
-    </a>
-  </div>
+  <nav *ngIf="totalPages > 1" class="pagination" aria-label="Video pages">
+    <button type="button" *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="pageClick(i)" [class.current-page]="i === currentPage"
+      [attr.aria-current]="i === currentPage ? 'page' : null"
+      [attr.aria-label]="'Page ' + (i + 1)">{{ i + 1 }}</button>
+  </nav>
 </div>

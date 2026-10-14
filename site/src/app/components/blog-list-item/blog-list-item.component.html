@@ -1,22 +1,14 @@
-<div id="blog-list-item-container">
-  <div class="content-section-container">
-    <iframe *ngIf="video != null" [src]="video | safe:'resourceUrl'" class="video-handler"
-      allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
-      oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
-    <a *ngIf="image != null" [routerLink]="['/blog/' + blogPost?.Uri]"><img [src]="image | safe:'resourceUrl'"></a>
-    <a *ngIf="blogPost?.Uri != null" id="blog-list-item-title" class="title-link"
-      [routerLink]="['/blog/' + blogPost?.Uri]">
-      <h1>{{ blogPost?.Title }}</h1>
-    </a>
-    <div *ngIf="blogPost?.Uri == null" id="blog-list-item-title">
-      <h1>{{ blogPost?.Title }}</h1>
-    </div>
-    <p id="blog-list-item-preview-text">{{ blogPost?.Preview }}</p>
-    <div id="blog-list-item-header-container">
-      <div id="blog-list-item-keywords-container" class="keywords-container">
-        <a *ngFor="let keyword of blogPost?.Keywords" class="small-button-container background-purple">{{ keyword }}</a>
-      </div>
-      <time id="blog-list-item-date-time" [dateTime]="blogPost?.Date">{{ blogPost?.Date | date }}</time>
-    </div>
+<article class="video-entry">
+  <div class="post-media" *ngIf="video || image">
+    <button *ngIf="videoPoster && !videoPlaying" class="video-poster" type="button" (click)="videoPlaying = true" [attr.aria-label]="'Play video: ' + blogPost?.Title">
+      <img [src]="videoPoster" alt="" loading="lazy"><span aria-hidden="true">▶</span>
+    </button>
+    <iframe *ngIf="video && (!videoPoster || videoPlaying)" [src]="video | safe:'resourceUrl'" class="video-handler" [title]="blogPost?.Title || 'Video'" loading="lazy" allowfullscreen></iframe>
+    <a *ngIf="image" [routerLink]="['/blog/' + blogPost?.Uri]"><img [src]="image | safe:'resourceUrl'" [alt]="blogPost?.Title || ''" loading="lazy"></a>
   </div>
-</div>
+  <div class="post-text">
+    <time [dateTime]="blogPost?.Date">{{ blogPost?.Date | date:'yyyy-MM-dd' }}</time>
+    <h2><a *ngIf="blogPost?.Uri; else videoTitle" [routerLink]="['/blog/' + blogPost?.Uri]">{{ blogPost?.Title }}</a><ng-template #videoTitle>{{ blogPost?.Title }}</ng-template></h2>
+    <p *ngIf="blogPost?.Preview">{{ blogPost?.Preview }}</p>
+  </div>
+</article>

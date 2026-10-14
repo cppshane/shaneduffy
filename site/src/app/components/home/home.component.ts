@@ -1,10 +1,12 @@
 import {
   ChangeDetectorRef,
   Component,
+  Inject,
+  PLATFORM_ID,
   ElementRef,
   ViewChild,
 } from "@angular/core";
-import { Location } from "@angular/common";
+import { Location, isPlatformBrowser } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SearchResponse } from "src/app/models/search-response.model";
 import { Post } from "../../models/post.model";
@@ -19,8 +21,9 @@ import { Title } from "@angular/platform-browser";
 export class HomeComponent {
   @ViewChild("blogSectionContainer", { static: true })
   blogSectionContainer!: ElementRef;
-  readonly postsPerPage = 5;
+  readonly postsPerPage = 10;
   blogPosts: Array<Post> = new Array<Post>();
+  postsFailed = false;
   totalPages = 0;
   currentPage = 0;
 
@@ -30,7 +33,8 @@ export class HomeComponent {
     private location: Location,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    @Inject(PLATFORM_ID) private platformId: Record<string, unknown>
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       const pageParam = params["page"];
@@ -46,6 +50,7 @@ export class HomeComponent {
         return;
       }
 
+      this.postsFailed = false;
       postService.getBlogPosts(
         "",
         [],
@@ -57,14 +62,17 @@ export class HomeComponent {
           this.blogPosts = [];
           for (const blogPost of searchResponse.Posts) {
             this.blogPosts.push(blogPost);
-          } 
-          if (pageParam != null) {
-            this.blogSectionContainer?.nativeElement.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
+          }
+          if ((pageParam != null || this.activatedRoute.snapshot.fragment === "writing") && isPlatformBrowser(this.platformId)) {
+            requestAnimationFrame(() => {
+              this.blogSectionContainer?.nativeElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
             });
           }
-        }
+        },
+        () => { this.postsFailed = true; }
       );
     });
   }
@@ -74,6 +82,11 @@ export class HomeComponent {
   }
 
   pageClick(i: number) {
-    this.router.navigate([ this.router.url.split('?')[0] ], { queryParams: { page: (i + 1).toString() }, queryParamsHandling: 'merge' });
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { page: (i + 1).toString() },
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
   }
 }

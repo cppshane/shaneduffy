@@ -1,47 +1,8 @@
-<div id="nav-container">
-  <div id="nav-bar">
-    <a id="nav-circle-logo" [routerLink]="['/']"><img src="../../../assets/img/logo-circle-64.png" /></a>
-    <div id="header-nav" class="nav-controls-container hidden-scrollbar">
-      <a [routerLink]="['/']">home</a>
-      <a [routerLink]="['/videos']">videos</a>
-      <a [routerLink]="['/about']">about</a>
-      <a [routerLink]="['/projects']">projects</a>
-      <!--<a [routerLink]="['/notes']">notes</a>-->
-      <a id="spacer-search-nav-button">search</a>
-    </div>
-  </div>
-  <div id="search-nav-bar">
-    <div class="nav-controls-container hidden-scrollbar">
-      <a #searchControl id="search-control" class="search-control-closed cursor-pointer"
-        (click)="searchSidebarOpen ? navOutSearch() : navToSearch()">search</a>
-      <a (click)="searchSidebarOpen ? navOutSearch() : navToSearch()" id="menu-control">
-        <div></div>
-        <div></div>
-        <div></div>
-      </a>
-    </div>
-  </div>
-  <div #searchSidebar id="search-sidebar" class="search-sidebar-closed background-dark-gray">
-    <div id="search-sidebar-close" (click)="navOutSearch()">
-      <img src="../../../assets/img/close.png"/>
-    </div>
-    <div id="menu-controls-container">
-      <a [routerLink]="['/']" class="purple-hover">home</a>
-      <a [routerLink]="['/videos']">videos</a>
-      <a [routerLink]="['/about']" class="purple-hover">about</a>
-      <a [routerLink]="['/projects']" class="purple-hover">projects</a>
-      <!--<a [routerLink]="['/notes']">notes</a>-->
-      <a class="cursor-default">search</a>
-    </div>
-    <div id="search-sidebar-underline"></div>
-    <input #searchInput id="search-input" class="input-container-light" placeholder="press enter..."
-      [(ngModel)]="searchText" (keyup.enter)="applySearch()" />
-    <div class="results-list-container">
-      <div *ngFor="let post of searchResults" class="search-result-container">
-        <a [routerLink]="['/blog/' + post.Uri]">
-          <h4>{{ "> " + post.Title }}</h4>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<a class="site-address" [routerLink]="['/']">shaneduffy.io</a>
+<nav class="site-links" aria-label="Main navigation">
+  <a [routerLink]="['/']" fragment="writing">notes</a><span aria-hidden="true">/</span>
+  <a [routerLink]="['/projects']">projects</a><span aria-hidden="true">/</span>
+  <a [routerLink]="['/videos']">videos</a><span aria-hidden="true">/</span>
+  <a [routerLink]="['/about']">about</a>
+</nav>

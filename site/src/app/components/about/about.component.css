@@ -1,22 +1,23 @@
-.about-links-container {
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-}
-
-@media screen and (max-width: 450px) {
-  .about-links-container a {
-    font-size: 0.6rem;
-  }
-  .about-links-container p {
-    line-height: 1.2rem !important;
-  }
-}
-
-.about-links-container > p {
-  margin: 0 1em;
-  font-size: 1rem;
-  line-height: 2rem;
-  letter-spacing: 0.02em;
-  font-weight: 500;
+.about-content { max-width: 880px; margin: auto; padding: 24px 24px 64px; }
+.about-quote { max-width: 680px; margin: 0 0 32px; color: var(--muted); font: 12px/1.9 var(--mono); }
+.about-tree, .about-tree ul, .about-tree li, .about-tree p { font: 13px/1.8 var(--mono); list-style: none; margin: 0; padding: 0; color: var(--text); }
+.about-tree .tree-root { margin-bottom: 18px; color: var(--muted); }
+.about-tree .branch { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 24px; padding: 10px 0; }
+.branch-label { display: flex; color: var(--muted); }
+.tree-prefix { white-space: pre; color: #59655d; }
+.branch-values { min-width: 0; }
+.inline-values { display: flex; flex-wrap: wrap; align-content: flex-start; column-gap: 12px; }
+.inline-values > span { max-width: 100%; overflow-wrap: anywhere; }
+.separator { color: #59655d; }
+.key-values p { display: grid; grid-template-columns: 3ch minmax(0,1fr); gap: 12px; }
+.key-label { color: var(--muted); }
+.key-value { overflow-wrap: anywhere; font-size: 12px; }
+.about-tree .profile-links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.about-tree a { color: var(--text); }
+.about-tree a:hover { text-decoration: underline; }
+@media(max-width:650px) {
+  .about-tree, .about-tree ul, .about-tree li, .about-tree p { font-size: 12px; }
+  .about-tree .branch { grid-template-columns: 1fr; gap: 5px; padding: 9px 0; }
+  .branch-values { padding-left: 3ch; }
+  .inline-values { column-gap: 10px; }
 }

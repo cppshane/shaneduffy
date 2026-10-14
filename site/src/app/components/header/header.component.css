@@ -1,92 +1,14 @@
-#header-container {
-  position: relative;
-  width: 100%;
-  max-width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  background: url('https://cdn.shaneduffy.io/shaneduffy/home-background.webp') no-repeat center;
-  background-size: cover;
-}
-
-#header-container.header-is-home {
-  background: none;
-}
-
-#home-header-container {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-
-#blog-post-header-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-
-#blog-post-intro-header-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#blog-post-intro-header-container > time {
-  white-space: nowrap;
-  margin-left: 1em;
-}
-
-@media screen and (max-width: 540px) {
-  #blog-post-intro-header-container {
-    flex-direction: column;
-  }
-  #blog-post-intro-header-container > time {
-    margin-left: 0em;
-  }
-}
-
-#standard-header-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
-
-.intro-section-mask {
-  opacity: 0.7;
-  background: #000000;
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  z-index: 34;
-}
-
-.intro-section-content {
-  align-self: center;
-  position: absolute;
-  z-index: 35;
-}
-
-.intro-section-content > h1 {
-  margin-block-start: 0.5em;
-}
-
-@media screen and (max-width: 480px) {
-  .intro-section-content {
-    margin: 0 2em;
-  }
-}
-
-#home-banner {
-  align-self: center;
-  width: 30em;
-}
-
-@media screen and (max-width: 480px) {
-  #home-banner {
-    width: 20em;
-  }
+#header-container { position: relative; overflow: hidden; background: transparent; }
+#header-container.header-is-home { height: 380px; }
+#home-header-container { position: relative; z-index: 2; width: 100%; height: 100%; pointer-events: none; }
+#standard-header-container, #blog-post-header-container { min-height: 240px; align-items: center; }
+#standard-header-container { min-height: 200px; }
+.intro-section-content { width: 100%; max-width: 880px; padding: 110px 24px 42px; }
+.intro-section-content h1 { font: 400 clamp(26px,4vw,42px)/1.35 var(--mono); letter-spacing: -.03em; margin: 20px 0 0; }
+#standard-header-container .intro-section-content { padding-bottom: 24px; }
+#standard-header-container h1 { font-size: 24px; }
+#blog-post-intro-header-container { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+@media(max-width:650px) {
+  #header-container.header-is-home { height: 300px; }
+  #blog-post-intro-header-container { align-items: flex-start; flex-direction: column; }
 }
