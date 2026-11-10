@@ -78,7 +78,7 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    this.titleService.setTitle("Shane Duffy");
+    this.titleService.setTitle("cppshane");
   }
 
   pageClick(i: number) {

@@ -24,7 +24,7 @@ export class NotesPostComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.titleService.setTitle("Shane Duffy");
+    this.titleService.setTitle("cppshane");
 
     this.activatedRoute.params.subscribe((params) => {
       if (params.uri) {
