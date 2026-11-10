@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { Injectable, isDevMode } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Post } from "../models/post.model";
 import { SearchResponse } from "../models/search-response.model";
 
@@ -7,15 +7,9 @@ import { SearchResponse } from "../models/search-response.model";
   providedIn: "root",
 })
 export class PostService {
-  baseUrl?: string;
+  private readonly baseUrl = "/api/";
 
-  constructor(private httpClient: HttpClient) {
-    if (isDevMode()) {
-      this.baseUrl = "/api/";
-    } else {
-      this.baseUrl = "https://shaneduffy.io/api/";
-    }
-  }
+  constructor(private httpClient: HttpClient) {}
 
   getBlogPosts(
     searchString: string,

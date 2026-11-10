@@ -11,7 +11,6 @@ import { HomeComponent } from './components/home/home.component';
 import { VideosComponent } from './components/videos/videos.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { NavComponent } from './components/nav/nav.component';
-import { FooterComponent } from './components/footer/footer.component'
 import { BlogListItemComponent } from './components/blog-list-item/blog-list-item.component';
 import { AboutComponent } from './components/about/about.component'
 import { ProjectsComponent } from './components/projects/projects.component'
@@ -33,7 +32,6 @@ import { SafePipe } from './pipes/safe.pipe';
     NotesComponent,
     NotesPostComponent,
     NavComponent,
-    FooterComponent,
     BlogListItemComponent,
     AboutComponent,
     ProjectsComponent,
