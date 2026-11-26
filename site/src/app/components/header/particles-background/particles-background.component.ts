@@ -205,6 +205,8 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
   private drawBuffersExt: WEBGL_draw_buffers | null = null;
   private colorTarget: ColorTargetFormat | null = null;
   private particleDim = 1024;
+  private readonly cameraRadius = 1.6;
+  private readonly pointSize = 1.75;
   private clock = new Clock();
   private camera: Camera | null = null;
   private cameraControls: CameraControls | null = null;
@@ -237,6 +239,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
       uniforms: {
         uViewProjMat: WebGLUniformLocation | null;
         uColor: WebGLUniformLocation | null;
+        uPointSize: WebGLUniformLocation | null;
         uTexture0: WebGLUniformLocation | null;
         uTexture1: WebGLUniformLocation | null;
         uTexture2: WebGLUniformLocation | null;
@@ -426,7 +429,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
       canvas.width / canvas.height
     );
     this.cameraControls = new CameraControls(this.camera);
-    this.cameraControls.radius = 2.8;
+    this.cameraControls.radius = this.cameraRadius;
 
     const particleProgram = this.compileProgram(gl, vs, fs);
     const particleComputeProgram = this.compileProgram(gl, compVs, compFs);
@@ -450,6 +453,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
         uniforms: {
           uViewProjMat: gl.getUniformLocation(particleProgram, "uViewProjMat"),
           uColor: gl.getUniformLocation(particleProgram, "uColor"),
+          uPointSize: gl.getUniformLocation(particleProgram, "uPointSize"),
           uTexture0: gl.getUniformLocation(particleProgram, "uTexture0"),
           uTexture1: gl.getUniformLocation(particleProgram, "uTexture1"),
           uTexture2: gl.getUniformLocation(particleProgram, "uTexture2"),
@@ -783,6 +787,7 @@ export class ParticlesBackgroundComponent implements AfterViewInit, OnDestroy {
       s.uColorValue[2],
       s.uColorValue[3]
     );
+    gl.uniform1f(s.uniforms.uPointSize, this.pointSize);
     gl.enableVertexAttribArray(s.attributes.aUV);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.particleUVBuffer);
     gl.vertexAttribPointer(s.attributes.aUV, 2, gl.FLOAT, false, 0, 0);

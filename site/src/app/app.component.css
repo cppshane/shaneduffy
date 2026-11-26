@@ -1,5 +1,5 @@
 .site-shell {
-  --grid-center-y: 180px;
+  --grid-center-y: 230px;
   position: relative;
   isolation: isolate;
   min-height: 100vh;
@@ -42,6 +42,6 @@
 .miku-peek.miku-visible { transform: translateY(0); visibility: visible; transition-delay: 0s; animation-play-state: running; }
 @keyframes miku-idle { to { background-position-x: calc(var(--miku-size) * -20); } }
 @media(max-width:650px) {
-  .site-shell { --grid-center-y: 150px; }
+  .site-shell { --grid-center-y: 190px; }
   .miku-peek { --miku-size: 96px; height: 72px; right: 12px; background-position-y: -51px; }
 }
