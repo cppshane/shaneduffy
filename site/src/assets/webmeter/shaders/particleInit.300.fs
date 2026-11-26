@@ -14,7 +14,7 @@ float rand(vec2 seed) {
 void main() {
   vec2 uv = gl_FragCoord.xy / uResolution.xy;
 
-  vec3 pos = vec3(uv.x, uv.y, rand(uv));
+  vec3 pos = vec3(uv.x - 0.5, uv.y, rand(uv));
   vec3 vel = vec3(-2.0, 0.0, 0.0);
   vec4 col = vec4(1.0, 0.3, 0.1, 0.5);
 
